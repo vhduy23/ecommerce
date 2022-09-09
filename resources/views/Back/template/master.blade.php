@@ -336,7 +336,8 @@
     //In slug ra textbox có id “slug”
     document.getElementById('slug').value = slug;
 };
-
+</script>
+<<script>
     ClassicEditor
         .create( document.querySelector( '#editor' ), {
             ckfinder: {
@@ -352,5 +353,4 @@
         .catch( error => {
             console.error( error );
         })
-
 </script>

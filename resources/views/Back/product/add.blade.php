@@ -47,14 +47,22 @@
             <input type="text" class="form-control" name="Author">
           </div>
           <div class="form-group">
+            <label for="exampleInputEmail1">Nhà xuất bản</label>
+            <input type="text" class="form-control" name="Publisher">
+          </div>
+          <div class="form-group">
             <label for="exampleInputEmail1">Giá</label>
             <input type="number" class="form-control" name="Price">
           </div>
+          <div class="form-group">
+            <label for="exampleInputEmail1">Mã sản phẩm<span class="text-danger">*</span></label>
+            <input type="text" class="form-control" name="Code">
           </div>
+        </div>
         <div class="col-6">
             <div class="form-group">
-              <label for="exampleInputEmail1">Danh mục </label>
-              <select class="form-control" name="level">
+              <label for="exampleInputEmail1">Danh mục</label>
+              <select class="form-control" name="categoryId">
                 @if(isset($Categories) && count($Categories) > 0)
                   @foreach($Categories as $k => $v)
                     <option value="{{$v->id}}">{{$v->category_name}}</option> 
@@ -62,14 +70,9 @@
                 @endif 
               </select>
             </div>
-
-            <div class="form-group">
-              <label for="exampleInputEmail1">Mã sản phẩm<span class="text-danger">*</span></label>
-              <input type="text" class="form-control" name="Code">
-            </div>
               <div class="form-group">
               <label for="exampleInputEmail1">Khuyến mãi</label>
-              <input type="number" class="form-control" name="Discount">
+              <input type="number" class="form-control" value="0"  name="Discount">
             </div>
             <div class="form-group">
               <label for="exampleInputEmail1">Lượt xem</label>
@@ -83,27 +86,27 @@
               <label for="exampleInputEmail1">Số lượng</label>
               <input type="number" name="Quantity" value="1" class="form-control" />
             </div>
+            <div class="form-group">
+              <label for="exampleInputEmail1">Thẻ meta title</label>
+              <textarea name="MetaTitle" rows="3" class="form-control"></textarea>
+            </div>
+            <div class="form-group">
+              <label for="exampleInputEmail1">Thẻ meta keyword</label>
+              <textarea name="MetaKeyword" rows="3" class="form-control"></textarea>
+            </div>
         </div>
-        </div>
-        <div class="form-group">
-          <label for="exampleInputEmail1">Thẻ meta title</label>
-          <textarea name="MetaTitle" rows="2" class="form-control"></textarea>
         </div>
         <div class="form-group">
           <label for="exampleInputEmail1">Thẻ meta description</label>
-          <textarea name="MetaDescription" rows="4" class="form-control"></textarea>
-        </div>
-        <div class="form-group">
-          <label for="exampleInputEmail1">Thẻ meta keyword</label>
-          <textarea name="MetaKeyword" rows="2" class="form-control"></textarea>
+          <textarea name="MetaDescription" rows="3" class="form-control"></textarea>
         </div>
         <div class="form-group">
           <label for="exampleInputEmail1">Giới thiệu ngắn</label>
-          <textarea name="SmallDescription" rows="8" class="form-control" id="ckeditor"></textarea>
+          <textarea name="SmallDescription" rows="4" class="form-control" id="ckeditor"></textarea>
         </div>
         <div class="form-group">
-          <label for="exampleInputEmail1">Mô tả sản phẩm<span class="text-danger">*</span></label>
-          <textarea name="Description" rows="8" class="form-control" id="ckeditor"></textarea>
+          <label for="exampleInputEmail1" >Mô tả sản phẩm<span class="text-danger">*</span></label>
+          <textarea name="Description" rows="8" class="form-control" id="editor"></textarea>
         </div>
 
       </div>

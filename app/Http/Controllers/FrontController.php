@@ -13,6 +13,7 @@ use App\Models\Category;
 use App\Models\Shopletter;
 use App\Models\Slide;
 use App\Models\Page;
+use App\Models\Product;
 
 class FrontController extends Controller
 {
@@ -54,9 +55,6 @@ class FrontController extends Controller
 
         $Page = Page::where('status', '1')
         ->get();
-
-
-
         // dd($Category);
 
         return view('Front.home.home', compact('Category', 'Slider', 'Page'));
@@ -86,6 +84,12 @@ class FrontController extends Controller
         }else{
             echo "error_22";
         }
+    }
+    public function product_list(){
+        $Products = Product::where('status',1)->get();
+
+         
+        return view('front.product.list', compact('Products'));
     }
     // public function getCategory(Request $request){
     //     $category = 

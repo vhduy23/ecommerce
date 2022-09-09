@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
-Route::post('/san-pham', 'App\Http\Controllers\ProductController@product_list');
+Route::get('/san-pham', 'App\Http\Controllers\FrontController@product_list');
 
 
 
