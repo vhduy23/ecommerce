@@ -56,8 +56,10 @@ class FrontController extends Controller
         $Page = Page::where('status', '1')
         ->get();
         // dd($Category);
-
-        return view('Front.home.home', compact('Category', 'Slider', 'Page'));
+        $Products = Product::where('status', '1')
+        ->orderBy('views', 'DESC')->limit(8)
+        ->get();
+        return view('Front.home.home', compact('Category', 'Slider', 'Page', 'Products'));
     }
     
 
@@ -91,6 +93,49 @@ class FrontController extends Controller
          
         return view('front.product.list', compact('Products'));
     }
+    public function slugHtml(Request $request ,$slug){
+        $productDetail = DB::table('product as a')
+        ->join('categories as b', 'a.categoryId', '=', 'b.id')
+        ->where('a.status',1)
+        ->where('a.alias',$slug)
+        ->selectRaw('a.alias as productalias, a.name, a.images, a.metatitle, a.metadescription, a.metakeyword, 
+            a.description, a.created_at, a.views, b.category_name, b.alias as categoryAlias')
+        ->orderBy('a.Views','DESC')
+        ->first();
+        // dd($productDetail);
+        return view('front.product.detail', compact('productDetail'));
+    }
+    public function slug(Request $request ,$slug){
+        $procductCate = Page::where('Status',1)->where('Alias',$slug)->first();
+
+        if (isset($procductCate) && $procductCate != NULL ) {
+            if (isset($request->sapxep) && $request->sapxep == 'luotxem') {
+                 $listNews = DB::table('product as a')
+                ->join('categoties as b', 'a.categoryId', '=', 'b.id')
+                ->where('a.status',1)
+                ->where('b.alias',$slug)
+                ->selectRaw('a.alias, a.name, a.images, a.smalldescription')
+                ->orderBy('a.views','DESC')
+                ->paginate(12);
+                $sort = 'luotxem';
+            }
+            else{
+                 $listProduct = DB::table('product as a')
+                ->join('categoties as b', 'a.categoryId', '=', 'b.id')
+                ->where('a.status',1)
+                ->where('b.alias',$slug)
+                ->selectRaw('a.alias, a.name, a.images, a.smalldescription')
+                ->orderBy('a.id','DESC')
+                ->paginate(12);
+                $sort = 'tinmoi';
+            }
+           
+            return view('front.product.list', compact('newsCat','listProduct','sort'));
+        }
+
+        
+    }
+
     // public function getCategory(Request $request){
     //     $category = 
     //     return view();

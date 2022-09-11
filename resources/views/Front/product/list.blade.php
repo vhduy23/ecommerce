@@ -2,6 +2,18 @@
 @section('title','Sản phẩm')
 @section('heading','Sản phẩm')
 @section('content')
+<!-- Page Header Start -->
+<div class="container-fluid bg-secondary mb-5">
+    <div class="d-flex flex-column align-items-center justify-content-center" style="min-height: 300px">
+        <h1 class="font-weight-semi-bold text-uppercase mb-3">Cửa hàng</h1>
+        <div class="d-inline-flex">
+            <p class="m-0"><a href="{{asset('/')}}">Trang chủ</a></p>
+            <p class="m-0 px-2">-</p>
+            <p class="m-0">Sản phẩm</p>
+        </div>
+    </div>
+</div>
+<!-- Page Header End -->
  <!-- Shop Start -->
  <div class="container-fluid pt-5">
         <div class="row px-xl-5">
@@ -44,7 +56,7 @@
                                     <h6 class="text-truncate mb-3">{{$v->name}}</h6>
                                     <div class="d-flex justify-content-center">
                                     @if($v->discount > 0)
-                                        <h6> {{($v->price * $v->discount / 100)}} VNĐ</h6><h6 class="text-muted ml-2"><del>{{$v->price}} VNĐ</del></h6>
+                                        <h6> {{$v->price - ($v->price * $v->discount / 100)}} VNĐ</h6><h6 class="text-muted ml-2"><del>{{$v->price}} VNĐ</del></h6>
                                         @else
                                         <h6>{{$v->price}} VNĐ</h6>
                                     @endif 
@@ -52,7 +64,7 @@
                                     </div>
                                 </div>
                                 <div class="card-footer d-flex justify-content-between bg-light border">
-                                    <a href="" class="btn btn-sm text-dark p-0"><i class="fas fa-eye text-primary mr-1"></i>View Detail</a>
+                                    <a href="{{url('/'.$v->alias)}}.html" class="btn btn-sm text-dark p-0"><i class="fas fa-eye text-primary mr-1"></i>View Detail</a>
                                     <a href="" class="btn btn-sm text-dark p-0"><i class="fas fa-shopping-cart text-primary mr-1"></i>Add To Cart</a>
                                 </div>
                             </div>

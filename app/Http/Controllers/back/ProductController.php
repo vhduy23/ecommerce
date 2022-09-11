@@ -145,7 +145,7 @@ public function product_edit(Request $request, $id){
 		if (!file_exists($filePath)) {
 			mkdir("images/product/".date('Ymd'),0777,true);
 		}
-		$img->fit(208, 141);
+		$img->fit(323, 323);
 		$img->save('images/product/'.date('Ymd').'/'.$name);
 
 		//delete images upload
