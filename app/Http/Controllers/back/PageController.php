@@ -40,8 +40,7 @@ class PageController extends Controller
        $Page->Name = $request->Name;
        $Page->Status = $request->Status;
        $Page->Font = $request->Font;
-       $Page->Sort = $request->Sort;
-       
+       $Page->Alias = $request->Alias;
        $Page->MetaTitle = $request->MetaTitle;
        $Page->MetaDescription = $request->MetaDescription;
        $Page->MetaKeyword = $request->MetaKeyword;

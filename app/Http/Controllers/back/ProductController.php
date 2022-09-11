@@ -43,7 +43,6 @@ public function product_add(Request $request){
 	elseif($request->Discount < 0){
 		return redirect('admin/product/add/')->with(['flash_level' => 'danger' , 'flash_message' => 'Khuyến mãi không được là số âm']);
 	}
-
 	$Products = new Product;
 	$Products->status = $request->Status;
 	$Products->name =  $request->Name;
@@ -52,7 +51,7 @@ public function product_add(Request $request){
 	$Products->code =  $request->Code;
 	$Products->author =  $request->Author;
 	$Products->price = $request->Price;
-	$Products->categoryId = $request->CategoryId;
+	$Products->categoryId = $request->categoryId;
 	$Products->highlight = $request->Highlight;
 	$Products->quantity = $request->Quantity;
 	$Products->metatitle = $request->MetaTitle;
@@ -119,6 +118,7 @@ public function product_edit(Request $request, $id){
 	$Products->author =  $request->Author;
 	$Products->price = $request->Price;
 	$Products->highlight = $request->Highlight;
+	$Products->categoryId = $request->categoryId;
 	$Products->quantity = $request->Quantity;
 	$Products->metatitle = $request->MetaTitle;
 	$Products->metadescription = $request->MetaDescription;
@@ -145,7 +145,7 @@ public function product_edit(Request $request, $id){
 		if (!file_exists($filePath)) {
 			mkdir("images/product/".date('Ymd'),0777,true);
 		}
-		$img->fit(208, 141);
+		$img->fit(323, 323);
 		$img->save('images/product/'.date('Ymd').'/'.$name);
 
 		//delete images upload

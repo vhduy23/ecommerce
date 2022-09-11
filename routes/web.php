@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
-Route::post('/san-pham', 'App\Http\Controllers\ProductController@product_list');
+Route::get('/san-pham', 'App\Http\Controllers\FrontController@product_list');
 
 
 
@@ -28,6 +28,9 @@ Route::post('/login', 'App\Http\Controllers\UserController@postCusLogin');
 
 Route::get('/', 'App\Http\Controllers\FrontController@home');
 Route::post('/nhan-email-lien-he', 'App\Http\Controllers\FrontController@subEmail');
+
+Route::get('{slug}.html','App\Http\Controllers\FrontController@slugHtml');
+Route::get('{slug}','App\Http\Controllers\FrontController@slug');
 
 
 Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function ($middleware) {

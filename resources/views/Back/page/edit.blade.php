@@ -31,7 +31,7 @@
         </div>
         <div class="form-group">
           <label for="exampleInputEmail1">Đường dẫn</span></label>
-          <input type="text" class="form-control" name="Alias" id="slug" value="{{$Page->Alias}}" >
+          <input type="text" class="form-control" name="Alias" value="{{$Page->Alias}}" id="slug">
         </div>
         <div class="form-group">
           <label for="exampleInputPassword1">Font</label>
