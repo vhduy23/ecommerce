@@ -108,7 +108,11 @@
           <label for="exampleInputEmail1" >Mô tả sản phẩm<span class="text-danger">*</span></label>
           <textarea name="Description" rows="8" class="form-control" id="editor"></textarea>
         </div>
+        <div class="form-group">
+          <label for="exampleInputEmail1">Ảnh chi tiết sản phẩm (Nhấn giữ shift chọn nhiều hình ảnh)</label><br/>
+          <input type="file" name="productImageDetails[]" multiple="multiple">
 
+        </div>
       </div>
       <!-- /.card-body -->
       <div class="card-footer">

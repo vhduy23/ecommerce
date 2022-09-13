@@ -14,6 +14,7 @@ use App\Models\Shopletter;
 use App\Models\Slide;
 use App\Models\Page;
 use App\Models\Product;
+use App\Models\ProductImages;
 
 class FrontController extends Controller
 {
@@ -101,9 +102,15 @@ class FrontController extends Controller
         ->selectRaw('a.alias as productalias, a.name, a.images, a.metatitle, a.metadescription, a.metakeyword, 
             a.description, a.created_at, a.views, b.category_name, b.alias as categoryAlias')
         ->orderBy('a.Views','DESC')
-        ->first();
-        // dd($productDetail);
-        return view('front.product.detail', compact('productDetail'));
+        ->get();
+
+        $imgDetails = Product::where('alias',$slug)
+        ->join('product_images as b', 'product.id', '=', 'b.productId')
+        ->selectRaw('b.images,product.images as avatar, product.id, b.sort')
+        ->get();
+        
+        // dd($imgDetails);
+        return view('front.product.detail', compact('productDetail', 'imgDetails'));
     }
     public function slug(Request $request ,$slug){
         $procductCate = Page::where('Status',1)->where('Alias',$slug)->first();

@@ -23,22 +23,13 @@
             <div class="col-lg-5 pb-5">
                 <div id="product-carousel" class="carousel slide" data-ride="carousel">
                     <div class="carousel-inner border">
-                        @if(isset($productDetail))
-                            @foreach($productDetail as $k => $v)
-                                <div class="carousel-item active">
-                                    <img class="w-100 h-100" src="{{url('images/product/'.$v->images)}}" alt="{{$v->name}}">
+                        @if(isset($imgDetails))
+                            @foreach($imgDetails as $imgDetails)
+                                <div class="carousel-item @if($imgDetails->sort == 1)active @endif">
+                                    <img class="w-100 h-100" src="{{url('images/product/details/'.$imgDetails->images)}}" alt="{{$imgDetails->name}}">
                                 </div>
                             @endforeach
                         @endif
-                        <!-- <div class="carousel-item">
-                            <img class="w-100 h-100" src="img/product-2.jpg" alt="Image">
-                        </div>
-                        <div class="carousel-item">
-                            <img class="w-100 h-100" src="img/product-3.jpg" alt="Image">
-                        </div>
-                        <div class="carousel-item">
-                            <img class="w-100 h-100" src="img/product-4.jpg" alt="Image">
-                        </div> -->
                     </div>
                     <a class="carousel-control-prev" href="#product-carousel" data-slide="prev">
                         <i class="fa fa-2x fa-angle-left text-dark"></i>

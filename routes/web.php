@@ -107,6 +107,8 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function ($middlewar
 		Route::get('delete/{id}', 'App\Http\Controllers\back\ProductController@product_delete');
         
 		Route::post('sort/{id}', 'App\Http\Controllers\back\ProductController@product_update_sort');
+		Route::post('deleteImageProduct', 'App\Http\Controllers\back\ProductController@deleteImageProduct');
+        
 	});
 
 	// page 
