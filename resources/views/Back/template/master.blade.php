@@ -232,7 +232,7 @@
 <!-- ./wrapper -->
 
 <!-- jQuery -->
-<!-- <script src="{{url('public/admin/plugins/jquery/jquery.min.js')}}"></script> -->
+<script src="{{url('public/admin/plugins/jquery/jquery.min.js')}}"></script>
 <!-- jQuery UI 1.11.4 -->
 <!-- <script src="{{url('public/admin/plugins/jquery-ui/jquery-ui.min.js')}}"></script> -->
 <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
@@ -267,7 +267,7 @@
 <!-- <script src="{{url('public/admin/dist/js/pages/dashboard.js')}}"></script> -->
 
 <!-- DataTables  & Plugins -->
-<!-- <script src="{{url('public/admin/plugins/datatables/jquery.dataTables.min.js')}}"></script>
+<script src="{{url('public/admin/plugins/datatables/jquery.dataTables.min.js')}}"></script>
 <script src="{{url('public/admin/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js')}}"></script>
 <script src="{{url('public/admin/plugins/datatables-responsive/js/dataTables.responsive.min.js')}}"></script>
 <script src="{{url('public/admin/plugins/datatables-responsive/js/responsive.bootstrap4.min.js')}}"></script>
@@ -278,7 +278,7 @@
 <script src="{{url('public/admin/plugins/pdfmake/vfs_fonts.js')}}"></script>
 <script src="{{url('public/admin/plugins/datatables-buttons/js/buttons.html5.min.js')}}"></script>
 <script src="{{url('public/admin/plugins/datatables-buttons/js/buttons.print.min.js')}}"></script>
-<script src="{{url('public/admin/plugins/datatables-buttons/js/buttons.colVis.min.js')}}"></script> -->
+<script src="{{url('public/admin/plugins/datatables-buttons/js/buttons.colVis.min.js')}}"></script>
 <script src="{{asset('public/ckeditor5/ckeditor.js')}}"></script>
 
 <!-- jquery  -->
@@ -318,7 +318,7 @@ function ChangeToSlug()
     slug = slug.replace(/á|à|ả|ạ|ã|ă|ắ|ằ|ẳ|ẵ|ặ|â|ấ|ầ|ẩ|ẫ|ậ/gi, 'a');
     slug = slug.replace(/é|è|ẻ|ẽ|ẹ|ê|ế|ề|ể|ễ|ệ/gi, 'e');
     slug = slug.replace(/i|í|ì|ỉ|ĩ|ị/gi, 'i');
-    slug = slug.replace(/ó|ò| |õ|ọ|ô|ố|ồ|ổ|ỗ|ộ|ơ|ớ|ờ|ở|ỡ|ợ/gi, 'o');
+    slug = slug.replace(/ó|ò|ỏ|õ|ọ|ô|ố|ồ|ổ|ỗ|ộ|ơ|ớ|ờ|ở|ỡ|ợ/gi, 'o');
     slug = slug.replace(/ú|ù|ủ|ũ|ụ|ư|ứ|ừ|ử|ữ|ự/gi, 'u');
     slug = slug.replace(/ý|ỳ|ỷ|ỹ|ỵ/gi, 'y');
     slug = slug.replace(/đ/gi, 'd');

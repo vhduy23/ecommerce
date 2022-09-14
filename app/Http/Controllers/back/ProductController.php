@@ -238,31 +238,32 @@ public function product_getedit(Request $request, $id){
 	$Categories = Category::get();
 	$Products = Product::find($id);
 	$ProductImages = ProductImages::where('productId', $id)->orderBy('sort', 'ASC')->get();
-	// dd($ProductImages);
 	return view('back.product.edit', compact('Products','Categories', 'ProductImages'));
 }
 public function product_delete(Request $request, $id){
 	$Products = Product::find($id);
-	 if ($Products->images != '') {
-			if (file_exists('images/news/'.$Products->images)) {
-				unlink('images/news/'.$Products->images);
-			}
-		}
-
-	$Flag = $Products->delete();
-	$ProductImages = ProductImages::where('productId',$id);
-	if($ProductImages ->images != ''){
-		if(file_exists('images/product/details/'.$ProductImages->images)) {
-			unlink('images/product/details/'.$ProductImages->images);
+	if ($Products->images != '') {
+		if (file_exists('images/product/'.$Products->images)) {
+			unlink('images/product/'.$Products->images);
 		}
 	}
-	$ProductImages->delete();
+	
+	$Flag = $Products->delete();
+	$ProductImages = ProductImages::where('productId',$id)->get();
+	foreach($ProductImages as $k => $v) {
+		$img  = ProductImages::find($v->id);
+		// dd($img);
+		unlink('images/product/details/'.$img->images);
+		$img->delete();
+	}
+	// $ProductImages->delete();
 	if ($Flag == true) {
 		 return redirect('admin/product/list')->with(['flash_level' => 'success' , 'flash_message' => 'Xóa tin tức thành công']);
 	 }
 	 else{
 		 return redirect('admin/product/list')->with(['flash_level' => 'danger' , 'flash_message' => 'Lỗi xóa tin tức']);
 	 } 
+
 }
 //product manage-------------------------------------------------------
 }
