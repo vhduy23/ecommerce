@@ -9,7 +9,14 @@
         <div class="d-inline-flex">
             <p class="m-0"><a href="{{asset('/')}}">Trang chủ</a></p>
             <p class="m-0 px-2">-</p>
+            @if($Alias == 'san-pham')
             <p class="m-0">Sản phẩm</p>
+            @else
+            <?php $alias = 'san-pham'; ?>
+            <p class="m-0"><a href="{{asset('/'.$alias)}}">Sản phẩm</a></p>
+            <p class="m-0 px-2">-</p>
+            <p class="m-0 px-2">{{$Cate->category_name}}</p>
+            @endif
         </div>
     </div>
 </div>
@@ -70,7 +77,6 @@
                             </div>
                         </div>
                         @endforeach
-                    @endif
                     <div class="col-12 pb-1">
                         <nav aria-label="Page navigation">
                           <ul class="pagination justify-content-center mb-3">
@@ -92,6 +98,9 @@
                           </ul>
                         </nav>
                     </div>
+                    @else
+                        <p class="text-center">Không có sản phẩm</p>
+                    @endif
                 </div>
             </div>
             <!-- Shop Product End -->

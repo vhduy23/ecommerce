@@ -85,3 +85,12 @@ $('#newsSort').on('change', function() {
     window.location.href= url+"/"+cat+"/?sapxep="+sort;
   }
 });
+
+//fillter danh mục
+$('#fillter').on('change', function() {
+  var cat = $('#cate').val();
+  var name = this.value;
+  if (name != '') {
+    window.location.href= url+"/"+cat+"/"+name;
+  }
+});

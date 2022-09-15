@@ -35,6 +35,7 @@ class CategoryController extends Controller
             };
             $Category->category_name = $request->Name;
             $Category->sort = $request->Sort;
+            $Category->alias = $request->Alias;
             $Category->status = $request->Status;
     
             $Flag = $Category->save();
@@ -58,6 +59,7 @@ class CategoryController extends Controller
         $Category = Category::find($id);
         $Category->category_name = $request->Name;
         $Category->sort = $request->Sort;
+        $Category->alias = $request->Alias;
         $Category->status = $request->Status;
 
         $Flag = $Category->save();

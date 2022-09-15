@@ -88,13 +88,28 @@ class FrontController extends Controller
             echo "error_22";
         }
     }
-    public function product_list(){
-        $Products = Product::where('status',1)->get();
+    public function product_list(Request $request, $slug){
+        if(isset($slug) && $slug == 'san-pham'){
+            $Products = Product::where('status',1)->get();
+            $Alias = $slug ;
+            $Cate = '';
+            // dd($Products);
+        }
+        else{
+            $Products = DB::table('categories')
+            ->join('product', 'product.categoryId', '=', 'categories.id')
+            ->where('categories.alias', $slug)
+            ->get();
+            $Alias = '';
 
-         
-        return view('front.product.list', compact('Products'));
+            $Cate = Category::where('alias', $slug)
+            ->selectRaw('categories.category_name')
+            ->first();
+
+        }
+        return view('front.product.list', compact('Products','Alias', 'Cate'));
     }
-    public function slugHtml(Request $request ,$slug){
+    public function slugHtml(Request $request ,$slug){  
         $productDetail = DB::table('product as a')
         ->join('categories as b', 'a.categoryId', '=', 'b.id')
         ->join('product_images as c', 'a.id', '=', 'c.productId')
@@ -110,36 +125,36 @@ class FrontController extends Controller
 
         return view('front.product.detail', compact('productDetail', 'highlightProduct'));
     }
-    public function slug(Request $request ,$slug){
-        $procductCate = Page::where('Status',1)->where('Alias',$slug)->first();
+    // public function slug(Request $request ,$slug){
+    //     $procductCate = Page::where('Status',1)->where('Alias',$slug)->first();
 
-        if (isset($procductCate) && $procductCate != NULL ) {
-            if (isset($request->sapxep) && $request->sapxep == 'luotxem') {
-                 $listNews = DB::table('product as a')
-                ->join('categoties as b', 'a.categoryId', '=', 'b.id')
-                ->where('a.status',1)
-                ->where('b.alias',$slug)
-                ->selectRaw('a.alias, a.name, a.images, a.smalldescription')
-                ->orderBy('a.views','DESC')
-                ->paginate(12);
-                $sort = 'luotxem';
-            }
-            else{
-                 $listProduct = DB::table('product as a')
-                ->join('categoties as b', 'a.categoryId', '=', 'b.id')
-                ->where('a.status',1)
-                ->where('b.alias',$slug)
-                ->selectRaw('a.alias, a.name, a.images, a.smalldescription')
-                ->orderBy('a.id','DESC')
-                ->paginate(12);
-                $sort = 'tinmoi';
-            }
+    //     if (isset($procductCate) && $procductCate != NULL ) {
+    //         if (isset($request->sapxep) && $request->sapxep == 'luotxem') {
+    //              $listNews = DB::table('product as a')
+    //             ->join('categoties as b', 'a.categoryId', '=', 'b.id')
+    //             ->where('a.status',1)
+    //             ->where('b.alias',$slug)
+    //             ->selectRaw('a.alias, a.name, a.images, a.smalldescription')
+    //             ->orderBy('a.views','DESC')
+    //             ->paginate(12);
+    //             $sort = 'luotxem';
+    //         }
+    //         else{
+    //              $listProduct = DB::table('product as a')
+    //             ->join('categoties as b', 'a.categoryId', '=', 'b.id')
+    //             ->where('a.status',1)
+    //             ->where('b.alias',$slug)
+    //             ->selectRaw('a.alias, a.name, a.images, a.smalldescription')
+    //             ->orderBy('a.id','DESC')
+    //             ->paginate(12);
+    //             $sort = 'tinmoi';
+    //         }
            
-            return view('front.product.list', compact('newsCat','listProduct','sort'));
-        }
+    //         return view('front.product.list', compact('newsCat','listProduct','sort'));
+    //     }
 
         
-    }
+    // }
 
     // public function getCategory(Request $request){
     //     $category = 

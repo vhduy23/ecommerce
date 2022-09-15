@@ -1,6 +1,7 @@
 @extends('Back.template.master')
 @section('title', 'Quản lý danh mục')
 @section('heading', 'Danh sách danh mục')
+@section('category', 'active')
 @section('content')
 
 <div class="col-md-12">
