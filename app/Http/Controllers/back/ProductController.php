@@ -53,6 +53,7 @@ public function product_add(Request $request){
 	$Products->code =  $request->Code;
 	$Products->author =  $request->Author;
 	$Products->price = $request->Price;
+	$Products->publisher = $request->Publisher;
 	$Products->categoryId = $request->categoryId;
 	$Products->highlight = $request->Highlight;
 	$Products->quantity = $request->Quantity;
@@ -103,7 +104,6 @@ public function product_add(Request $request){
 					$ProductImages->productId = $Products->id;
 					$random_digit = rand(00000000,999999999);
 					$name = $random_digit.'-'.$file->getClientOriginalName();
-	
 					$file->move('images/product/details/', $name);
 					$img = Image::make('images/product/details/'.$name);
 	
@@ -147,6 +147,7 @@ public function product_edit(Request $request, $id){
 	$Products->code =  $request->Code;
 	$Products->author =  $request->Author;
 	$Products->price = $request->Price;
+	$Products->publisher = $request->Publisher;
 	$Products->highlight = $request->Highlight;
 	$Products->categoryId = $request->categoryId;
 	$Products->quantity = $request->Quantity;
@@ -193,11 +194,13 @@ public function product_edit(Request $request, $id){
 		//hình  chi tiết sản phẩm
 		$productImageDetails = $request->file('productImageDetails');
 		if($request->hasFile('productImageDetails')) {
+			$i  = 0;
 			foreach($request->file('productImageDetails') as $file){
 				$ProductImages = new ProductImages();
 				$ProductImages->productId = $Products->id;
 				$random_digit = rand(00000000,999999999);
 				$name = $random_digit.'-'.$file->getClientOriginalName();
+				$i++;
 
 				$file->move('images/product/details/', $name);
 				$img = Image::make('images/product/details/'.$name);
@@ -214,6 +217,8 @@ public function product_edit(Request $request, $id){
 				if(file_exists('images/product/details/'.$name)){
 					unlink('images/product/details/'. $name);
 				}
+				// dd($i);
+				$ProductImages->sort = $i;
 				$ProductImages->images = date('ymd').'/'.$name;
 				$ProductImages->save();
 			}

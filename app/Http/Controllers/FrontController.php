@@ -97,20 +97,18 @@ class FrontController extends Controller
     public function slugHtml(Request $request ,$slug){
         $productDetail = DB::table('product as a')
         ->join('categories as b', 'a.categoryId', '=', 'b.id')
+        ->join('product_images as c', 'a.id', '=', 'c.productId')
         ->where('a.status',1)
         ->where('a.alias',$slug)
-        ->selectRaw('a.alias as productalias, a.name, a.images, a.metatitle, a.metadescription, a.metakeyword, 
-            a.description, a.created_at, a.views, b.category_name, b.alias as categoryAlias')
+        ->selectRaw('a.*, b.category_name, b.alias as categoryAlias, c.images as imgDetails, c.sort, b.id as cateId')
         ->orderBy('a.Views','DESC')
         ->get();
 
-        $imgDetails = Product::where('alias',$slug)
-        ->join('product_images as b', 'product.id', '=', 'b.productId')
-        ->selectRaw('b.images,product.images as avatar, product.id, b.sort')
+        $highlightProduct = Product::orderBy('highlight','DESC')
+        ->limit(8)
         ->get();
-        
-        // dd($imgDetails);
-        return view('front.product.detail', compact('productDetail', 'imgDetails'));
+
+        return view('front.product.detail', compact('productDetail', 'highlightProduct'));
     }
     public function slug(Request $request ,$slug){
         $procductCate = Page::where('Status',1)->where('Alias',$slug)->first();
