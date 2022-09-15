@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use App\Models\Product;
 use App\Models\Category;
 use App\Models\System;
+use App\Models\ProductImages;
 
 
 class ProductController extends Controller
@@ -33,7 +34,8 @@ class ProductController extends Controller
 public function product_getadd(){
 	$Categories = Category::Where('status',1)->get();
 	$Products = Product::Where('status',1)->get();
-	return view('back.product.add', compact('Categories', 'Products'));
+	$ProductImages = ProductImages::get();
+	return view('back.product.add', compact('Categories', 'Products', 'ProductImages'));
 }
 public function product_add(Request $request){
 	if ($request->Name == '' || $request->Description == '' || $request->Code == '' ) {
@@ -51,6 +53,7 @@ public function product_add(Request $request){
 	$Products->code =  $request->Code;
 	$Products->author =  $request->Author;
 	$Products->price = $request->Price;
+	$Products->publisher = $request->Publisher;
 	$Products->categoryId = $request->categoryId;
 	$Products->highlight = $request->Highlight;
 	$Products->quantity = $request->Quantity;
@@ -93,6 +96,33 @@ public function product_add(Request $request){
 	$Flag = $Products->save();
 
 	if ($Flag == true) {
+			//hình  chi tiết sản phẩm
+			$productImageDetails = $request->file('productImageDetails');
+			if($request->hasFile('productImageDetails')) {
+				foreach($request->file('productImageDetails') as $file){
+					$ProductImages = new ProductImages();
+					$ProductImages->productId = $Products->id;
+					$random_digit = rand(00000000,999999999);
+					$name = $random_digit.'-'.$file->getClientOriginalName();
+					$file->move('images/product/details/', $name);
+					$img = Image::make('images/product/details/'.$name);
+	
+					$filePath = "images/product/details/". date('ymd');
+					if(!file_exists($filePath)){
+						mkdir("images/product/details/". date('ymd'), 0777, true);
+					}
+					$img->fit(561, 561);
+					$img->save('images/product/details/'. date('ymd').'/'.$name);
+	
+	
+					//delete file
+					if(file_exists('images/product/details/'.$name)){
+						unlink('images/product/details/'. $name);
+					}
+					$ProductImages->images = date('ymd').'/'.$name;
+					$ProductImages->save();
+				}
+			}
 		 return redirect('admin/product/list')->with(['flash_level' => 'success' , 'flash_message' => 'Thêm tin tức thành công']);
 	 }
 	 else{
@@ -117,6 +147,7 @@ public function product_edit(Request $request, $id){
 	$Products->code =  $request->Code;
 	$Products->author =  $request->Author;
 	$Products->price = $request->Price;
+	$Products->publisher = $request->Publisher;
 	$Products->highlight = $request->Highlight;
 	$Products->categoryId = $request->categoryId;
 	$Products->quantity = $request->Quantity;
@@ -159,33 +190,85 @@ public function product_edit(Request $request, $id){
 	$Flag = $Products->save();
 
 	if ($Flag == true) {
+
+		//hình  chi tiết sản phẩm
+		$productImageDetails = $request->file('productImageDetails');
+		if($request->hasFile('productImageDetails')) {
+			$i  = 0;
+			foreach($request->file('productImageDetails') as $file){
+				$ProductImages = new ProductImages();
+				$ProductImages->productId = $Products->id;
+				$random_digit = rand(00000000,999999999);
+				$name = $random_digit.'-'.$file->getClientOriginalName();
+				$i++;
+
+				$file->move('images/product/details/', $name);
+				$img = Image::make('images/product/details/'.$name);
+
+				$filePath = "images/product/details/". date('ymd');
+				if(!file_exists($filePath)){
+					mkdir("images/product/details/". date('ymd'), 0777, true);
+				}
+				$img->fit(561, 561);
+				$img->save('images/product/details/'. date('ymd').'/'.$name);
+
+
+				//delete file
+				if(file_exists('images/product/details/'.$name)){
+					unlink('images/product/details/'. $name);
+				}
+				// dd($i);
+				$ProductImages->sort = $i;
+				$ProductImages->images = date('ymd').'/'.$name;
+				$ProductImages->save();
+			}
+  
+		}
 		 return redirect('admin/product/list')->with(['flash_level' => 'success' , 'flash_message' => 'Thêm tin tức thành công']);
 	 }
 	 else{
 		 return redirect('admin/product/edit')->with(['flash_level' => 'danger' , 'flash_message' => 'Lỗi thêm sản phẩm']);
 	 } 
 }
+public function deleteImageProduct(Request $request){
+	$ProductImages = ProductImages::find($request->productId);
+	if($ProductImages ->images != ''){
+		if(file_exists('images/product/details/'.$ProductImages->images)) {
+			unlink('images/product/details/'.$ProductImages->images);
+		}
+	}
+	$ProductImages->delete();
+}
 public function product_getedit(Request $request, $id){
 	$Categories = Category::get();
 	$Products = Product::find($id);
-	return view('back.product.edit', compact('Products','Categories'));
+	$ProductImages = ProductImages::where('productId', $id)->orderBy('sort', 'ASC')->get();
+	return view('back.product.edit', compact('Products','Categories', 'ProductImages'));
 }
 public function product_delete(Request $request, $id){
 	$Products = Product::find($id);
-	 if ($Products->images != '') {
-			if (file_exists('images/news/'.$Products->images)) {
-				unlink('images/news/'.$Products->images);
-			}
+	if ($Products->images != '') {
+		if (file_exists('images/product/'.$Products->images)) {
+			unlink('images/product/'.$Products->images);
 		}
-
+	}
+	
 	$Flag = $Products->delete();
-
+	$ProductImages = ProductImages::where('productId',$id)->get();
+	foreach($ProductImages as $k => $v) {
+		$img  = ProductImages::find($v->id);
+		// dd($img);
+		unlink('images/product/details/'.$img->images);
+		$img->delete();
+	}
+	// $ProductImages->delete();
 	if ($Flag == true) {
 		 return redirect('admin/product/list')->with(['flash_level' => 'success' , 'flash_message' => 'Xóa tin tức thành công']);
 	 }
 	 else{
 		 return redirect('admin/product/list')->with(['flash_level' => 'danger' , 'flash_message' => 'Lỗi xóa tin tức']);
 	 } 
+
 }
 //product manage-------------------------------------------------------
 }

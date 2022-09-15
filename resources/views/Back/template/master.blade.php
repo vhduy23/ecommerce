@@ -234,7 +234,7 @@
 <!-- jQuery -->
 <script src="{{url('public/admin/plugins/jquery/jquery.min.js')}}"></script>
 <!-- jQuery UI 1.11.4 -->
-<script src="{{url('public/admin/plugins/jquery-ui/jquery-ui.min.js')}}"></script>
+<!-- <script src="{{url('public/admin/plugins/jquery-ui/jquery-ui.min.js')}}"></script> -->
 <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
 <script>
   $.widget.bridge('uibutton', $.ui.button)
@@ -246,15 +246,15 @@
 <!-- Sparkline -->
 <script src="{{url('public/admin/plugins/sparklines/sparkline.js')}}"></script>
 <!-- JQVMap -->
-<script src="{{url('public/admin/plugins/jqvmap/jquery.vmap.min.js')}}"></script>
-<script src="{{url('public/admin/plugins/jqvmap/maps/jquery.vmap.usa.js')}}"></script>
+<!-- <script src="{{url('public/admin/plugins/jqvmap/jquery.vmap.min.js')}}"></script> -->
+<!-- <script src="{{url('public/admin/plugins/jqvmap/maps/jquery.vmap.usa.js')}}"></script> -->
 <!-- jQuery Knob Chart -->
 <script src="{{url('public/admin/plugins/jquery-knob/jquery.knob.min.js')}}"></script>
 <!-- daterangepicker -->
 <script src="{{url('public/admin/plugins/moment/moment.min.js')}}"></script>
 <script src="{{url('public/admin/plugins/daterangepicker/daterangepicker.js')}}"></script>
 <!-- Tempusdominus Bootstrap 4 -->
-<script src="{{url('public/admin/plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js')}}"></script>
+<!-- <script src="{{url('public/admin/plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js')}}"></script> -->
 <!-- Summernote -->
 <script src="{{url('public/admin/plugins/summernote/summernote-bs4.min.js')}}"></script>
 <!-- overlayScrollbars -->
@@ -262,9 +262,9 @@
 <!-- AdminLTE App -->
 <script src="{{url('public/admin/dist/js/adminlte.js')}}"></script>
 <!-- AdminLTE for demo purposes -->
-<script src="{{url('public/admin/dist/js/demo.js')}}"></script>
+<!-- <script src="{{url('public/admin/dist/js/demo.js')}}"></script> -->
 <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
-<script src="{{url('public/admin/dist/js/pages/dashboard.js')}}"></script>
+<!-- <script src="{{url('public/admin/dist/js/pages/dashboard.js')}}"></script> -->
 
 <!-- DataTables  & Plugins -->
 <script src="{{url('public/admin/plugins/datatables/jquery.dataTables.min.js')}}"></script>
@@ -280,29 +280,31 @@
 <script src="{{url('public/admin/plugins/datatables-buttons/js/buttons.print.min.js')}}"></script>
 <script src="{{url('public/admin/plugins/datatables-buttons/js/buttons.colVis.min.js')}}"></script>
 <script src="{{asset('public/ckeditor5/ckeditor.js')}}"></script>
-<!-- <script src="https://cdn.ckeditor.com/ckeditor5/35.1.0/classic/ckeditor.js"></script> -->
+
+<!-- jquery  -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
 
 
 <!-- AdminLTE App -->
 <!-- Page specific script -->
 <script>
-  $(function () {
-    $("#example1").DataTable({
-      "responsive": true, "lengthChange": false, "autoWidth": false,
-      "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
-    }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
-    $('#example2').DataTable({
-      "paging": true,
-      "lengthChange": false,
-      "searching": false,
-      "ordering": true,
-      "info": true,
-      "autoWidth": false,
-      "responsive": true,
-    });
-  });
+  // $(function () {
+  //   $("#example1").DataTable({
+  //     "responsive": true, "lengthChange": false, "autoWidth": false,
+  //     "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
+  //   }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
+  //   $('#example2').DataTable({
+  //     "paging": true,
+  //     "lengthChange": false,
+  //     "searching": false,
+  //     "ordering": true,
+  //     "info": true,
+  //     "autoWidth": false,
+  //     "responsive": true,
+  //   });
+  // });
 
-  function ChangeToSlug()
+function ChangeToSlug()
 {
     var title, slug;
 
@@ -316,7 +318,7 @@
     slug = slug.replace(/á|à|ả|ạ|ã|ă|ắ|ằ|ẳ|ẵ|ặ|â|ấ|ầ|ẩ|ẫ|ậ/gi, 'a');
     slug = slug.replace(/é|è|ẻ|ẽ|ẹ|ê|ế|ề|ể|ễ|ệ/gi, 'e');
     slug = slug.replace(/i|í|ì|ỉ|ĩ|ị/gi, 'i');
-    slug = slug.replace(/ó|ò|ỏ|õ|ọ|ô|ố|ồ|ổ|ỗ|ộ|ơ|ớ|ờ|ở|ỡ|ợ/gi, 'o');
+    slug = slug.replace(/ó|ò|ỏ|õ|ọ|ô|ố|ồ|ổ|ỗ|ộ|ơ|ớ|ờ|ở|ỡ|ợ/gi, 'o');
     slug = slug.replace(/ú|ù|ủ|ũ|ụ|ư|ứ|ừ|ử|ữ|ự/gi, 'u');
     slug = slug.replace(/ý|ỳ|ỷ|ỹ|ỵ/gi, 'y');
     slug = slug.replace(/đ/gi, 'd');
@@ -337,7 +339,7 @@
     document.getElementById('slug').value = slug;
 };
 </script>
-<<script>
+<script>
     ClassicEditor
         .create( document.querySelector( '#editor' ), {
             ckfinder: {

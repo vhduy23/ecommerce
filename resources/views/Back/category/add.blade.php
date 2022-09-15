@@ -2,7 +2,7 @@
 
 @section('title', 'Quản lý danh mục')
 @section('heading', 'Thêm mạng danh mục')
-@section('social', 'active')
+@section('category', 'active')
 @section('content')
 <div class="col-md-12">
     <div class="card-header">
@@ -16,9 +16,13 @@
       <div class="card-body"> 
         {!! csrf_field() !!}
         <div class="form-group">
-          <label for="exampleInputEmail1">Tên danh mục<span class="text-danger">*</span></label>
-          <input type="text" class="form-control" name="Name" >
-        </div>
+            <label for="exampleInputEmail1">Tên danh mục<span class="text-danger">*</span></label>
+            <input type="text" class="form-control" name="Name" id="title" onkeyup="ChangeToSlug();">
+          </div>
+          <div class="form-group">
+            <label for="exampleInputEmail1">Đường dẫn</label>
+            <input type="text" class="form-control" name="Alias" id="slug">
+          </div>
         <select class="form-control" name="Status">
             <option value="1">
               Trạng thái: Bật

@@ -12,4 +12,7 @@ class Product extends Model
     protected $table = 'product';
     protected $id = 'id';
 
+    public function productImages(){
+        return $this->hasbelongsTo('App\Models\ProductImages');
+    }
 }

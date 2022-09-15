@@ -52464,4 +52464,19 @@ a.text-muted:hover {
   max-width: 150px;
   max-height: 150px;
 };
+.ad_product_detail{
+  width: 100%;
+  position: relative;
+}
+.ad_product_detail a{
+  display: inline-block;
+  width: 100px;
+  margin-right: 10px;
+}
+.del_add_product{
+  position: absolute;
+  top: 0;
+  right: 0;
+  cursor: pointer;
+}
 /*# sourceMappingURL=adminlte.css.map */

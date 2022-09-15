@@ -14,6 +14,7 @@ use App\Models\Shopletter;
 use App\Models\Slide;
 use App\Models\Page;
 use App\Models\Product;
+use App\Models\ProductImages;
 
 class FrontController extends Controller
 {
@@ -87,54 +88,73 @@ class FrontController extends Controller
             echo "error_22";
         }
     }
-    public function product_list(){
-        $Products = Product::where('status',1)->get();
+    public function product_list(Request $request, $slug){
+        if(isset($slug) && $slug == 'san-pham'){
+            $Products = Product::where('status',1)->get();
+            $Alias = $slug ;
+            $Cate = '';
+            // dd($Products);
+        }
+        else{
+            $Products = DB::table('categories')
+            ->join('product', 'product.categoryId', '=', 'categories.id')
+            ->where('categories.alias', $slug)
+            ->get();
+            $Alias = '';
 
-         
-        return view('front.product.list', compact('Products'));
+            $Cate = Category::where('alias', $slug)
+            ->selectRaw('categories.category_name')
+            ->first();
+
+        }
+        return view('front.product.list', compact('Products','Alias', 'Cate'));
     }
-    public function slugHtml(Request $request ,$slug){
+    public function slugHtml(Request $request ,$slug){  
         $productDetail = DB::table('product as a')
         ->join('categories as b', 'a.categoryId', '=', 'b.id')
+        ->join('product_images as c', 'a.id', '=', 'c.productId')
         ->where('a.status',1)
         ->where('a.alias',$slug)
-        ->selectRaw('a.alias as productalias, a.name, a.images, a.metatitle, a.metadescription, a.metakeyword, 
-            a.description, a.created_at, a.views, b.category_name, b.alias as categoryAlias')
+        ->selectRaw('a.*, b.category_name, b.alias as categoryAlias, c.images as imgDetails, c.sort, b.id as cateId')
         ->orderBy('a.Views','DESC')
-        ->first();
-        // dd($productDetail);
-        return view('front.product.detail', compact('productDetail'));
-    }
-    public function slug(Request $request ,$slug){
-        $procductCate = Page::where('Status',1)->where('Alias',$slug)->first();
+        ->get();
 
-        if (isset($procductCate) && $procductCate != NULL ) {
-            if (isset($request->sapxep) && $request->sapxep == 'luotxem') {
-                 $listNews = DB::table('product as a')
-                ->join('categoties as b', 'a.categoryId', '=', 'b.id')
-                ->where('a.status',1)
-                ->where('b.alias',$slug)
-                ->selectRaw('a.alias, a.name, a.images, a.smalldescription')
-                ->orderBy('a.views','DESC')
-                ->paginate(12);
-                $sort = 'luotxem';
-            }
-            else{
-                 $listProduct = DB::table('product as a')
-                ->join('categoties as b', 'a.categoryId', '=', 'b.id')
-                ->where('a.status',1)
-                ->where('b.alias',$slug)
-                ->selectRaw('a.alias, a.name, a.images, a.smalldescription')
-                ->orderBy('a.id','DESC')
-                ->paginate(12);
-                $sort = 'tinmoi';
-            }
+        $highlightProduct = Product::orderBy('highlight','DESC')
+        ->limit(8)
+        ->get();
+
+        return view('front.product.detail', compact('productDetail', 'highlightProduct'));
+    }
+    // public function slug(Request $request ,$slug){
+    //     $procductCate = Page::where('Status',1)->where('Alias',$slug)->first();
+
+    //     if (isset($procductCate) && $procductCate != NULL ) {
+    //         if (isset($request->sapxep) && $request->sapxep == 'luotxem') {
+    //              $listNews = DB::table('product as a')
+    //             ->join('categoties as b', 'a.categoryId', '=', 'b.id')
+    //             ->where('a.status',1)
+    //             ->where('b.alias',$slug)
+    //             ->selectRaw('a.alias, a.name, a.images, a.smalldescription')
+    //             ->orderBy('a.views','DESC')
+    //             ->paginate(12);
+    //             $sort = 'luotxem';
+    //         }
+    //         else{
+    //              $listProduct = DB::table('product as a')
+    //             ->join('categoties as b', 'a.categoryId', '=', 'b.id')
+    //             ->where('a.status',1)
+    //             ->where('b.alias',$slug)
+    //             ->selectRaw('a.alias, a.name, a.images, a.smalldescription')
+    //             ->orderBy('a.id','DESC')
+    //             ->paginate(12);
+    //             $sort = 'tinmoi';
+    //         }
            
-            return view('front.product.list', compact('newsCat','listProduct','sort'));
-        }
+    //         return view('front.product.list', compact('newsCat','listProduct','sort'));
+    //     }
 
         
-    }
+    // }
 
     // public function getCategory(Request $request){
     //     $category = 

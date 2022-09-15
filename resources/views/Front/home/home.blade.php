@@ -11,10 +11,11 @@
                     <i class="fa fa-angle-down text-dark"></i>
                 </a>
                 <nav class="collapse show navbar navbar-vertical navbar-light align-items-start p-0 border border-top-0 border-bottom-0" id="navbar-vertical">
-                    <div class="navbar-nav w-100 overflow-hidden" style="height: 410px">
+                    <div class="navbar-nav w-100 overflow-hidden" id="fillter" style="height: 410px">
                         @if(isset($Category) && count($Category) > 0)
                             @foreach($Category as $category)
-                                <a href="$category->alias" class="nav-item nav-link">{{$category->category_name}}</a>
+                                <a href="{{url('/'.$category->alias)}}" class="nav-item nav-link">{{$category->category_name}}</a>
+                                <input type="hidden" id="cate" value="{{$category->alias}}">
                             @endforeach
                         @endif
                     </div>
@@ -32,7 +33,7 @@
                         <div class="navbar-nav mr-auto py-0">
                             @if(isset($Page) && count($Page) > 0)
                                 @foreach($Page as $k=>$v)
-                                    <a href="{{url('/san-pham')}}" title="{{$v->name}}" class="nav-item nav-link @if($k == 0) active @endif">{{$v->Name}}</a>
+                                    <a href="{{url('/'.$v->Alias)}}" title="{{$v->name}}" class="nav-item nav-link @if($k == 0) active @endif">{{$v->Name}}</a>
                                 @endforeach
                             @endif
                         </div>

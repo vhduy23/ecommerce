@@ -71,7 +71,7 @@
               </select>
             </div>
               <div class="form-group">
-              <label for="exampleInputEmail1">Khuyến mãi</label>
+              <label for="exampleInputEmail1">Khuyến mãi (%)</label>
               <input type="number" class="form-control" name="Discount" value="{{$Products->discount}}">
             </div>
             <div class="form-group">
@@ -99,7 +99,7 @@
         <div class="form-group">
               <label for="exampleInputEmail1">Thẻ meta description</label>
               <textarea name="MetaDescription"  rows="3" class="form-control">{{$Products->metadescription}}</textarea>
-            </div>
+        </div>
         <div class="form-group">
           <label for="exampleInputEmail1">Giới thiệu ngắn</label>
           <textarea name="SmallDescription"  rows="4" class="form-control" id="ckeditor">{{$Products->smalldescription}}</textarea>
@@ -108,7 +108,42 @@
           <label for="exampleInputEmail1">Mô tả sản phẩm<span class="text-danger">*</span></label>
           <textarea name="Description" rows="8"  class="form-control" id="editor">{{$Products->description}}</textarea>
         </div>
-
+        <div class="form-group">
+          <label for="exampleInputEmail1">Ảnh chi tiết sản phẩm (Nhấn giữ shift chọn nhiều hình ảnh)</label><br/>
+          <input type="file" name="productImageDetails[]" multiple="multiple">
+          <div class="ad_product_detail">
+            <div class="show_error_delete_img"></div>
+            <br/>
+              @foreach($ProductImages as $k => $v)
+                <a class="item-{{$v->id}} col-md-3 col-sm-3 col-xs-3">
+                    <span class="del_add_product" data_id="{{$v->id}}" />
+                        <i class="fa fa-times" aria-hidden="true"></i>
+                    </span>
+                    <img style="max-width: 100px" src="{!! url('images/product/details/'.$v->images) !!}" alt="" />
+                </a>
+              @endforeach
+              <script type="text/javascript" src="{{url('public/admin/plugins/jquery/jquery.min.js')}}"></script>
+            <script  type="text/javascript">
+              $('.del_add_product').click(function(){
+                var productId = $(this).attr('data_id');
+                $.ajax({
+                  type: 'POST',
+                  url: '{!! url("/admin/product/deleteImageProduct") !!}',
+                  data: {
+                    productId: productId,
+                    "_token": "{{ csrf_token() }}"
+                   },
+                   success: function (data){
+                    $('.item-'+productId).remove();
+                   },
+                   erorr: function (){ 
+                    alert('Có lỗi trong quy trình xử lý, vui lòng kiểm tra lại')
+                   }
+                 })
+              })
+            </script>
+          </div> 
+        </div>
       </div>
       <!-- /.card-body -->
       <div class="card-footer">

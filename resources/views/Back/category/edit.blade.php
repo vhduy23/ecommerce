@@ -2,7 +2,7 @@
 
 @section('title', 'Quản lý danh mục')
 @section('heading', 'Chỉnh sửa danh mục')
-@section('social', 'active')
+@section('category', 'active')
 @section('content')
 <div class="col-md-12">
     <div class="card-header">
@@ -17,9 +17,13 @@
         {!! csrf_field() !!}
 
         <div class="form-group">
-          <label for="exampleInputEmail1">Tên danh mục<span class="text-danger">*</span></label>
-          <input type="text" class="form-control" name="Name" value="{{$Category->category_name}}">
-        </div>
+            <label for="exampleInputEmail1">Tên danh mục<span class="text-danger">*</span></label>
+            <input type="text" class="form-control" name="Name" value="{{$Category->category_name }}" id="title" onkeyup="ChangeToSlug();">
+          </div>
+        <div class="form-group">
+            <label for="exampleInputEmail1">Đường dẫn</label>
+            <input type="text" class="form-control" name="Alias" value="{{$Category->alias}}" id="slug">
+          </div>
         <div class="form-group">
           <select class="form-control" name="Status">
             <option value="1" @if($Category->status == 1) selected="" @endif>
