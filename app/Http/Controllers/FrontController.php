@@ -64,11 +64,11 @@ class FrontController extends Controller
         ->get();
 
         $Products = Product::where('status', '1')
-        ->orderBy('views', 'DESC')->limit(8)
+        ->orderBy('views', 'DESC')->limit(4)
         ->get();
 
         $NewProducts = Product::where('status', '1')
-        ->orderBy('created_at', 'DESC')->limit(8)
+        ->orderBy('created_at', 'DESC')->limit(4)
         ->get();
 
         return view('Front.home.home', compact('Category', 'Slider', 'Page', 'Products', 'NewProducts'));
@@ -194,8 +194,7 @@ class FrontController extends Controller
         }
         if(isset($slug) && $slug == 'san-pham'){
             $Products = Product::where('status',1)
-            ->get();
-            // ->paginate(9);
+            ->paginate(9);
             $Alias = $slug ;
             $Cate = ' ';
             return view('front.product.list', compact('Products','Alias', 'Cate'));
@@ -204,8 +203,7 @@ class FrontController extends Controller
             $Products = DB::table('categories')
             ->join('product', 'product.categoryId', '=', 'categories.id')
             ->where('categories.alias', $slug)
-            ->get();
-            // ->paginate(9);
+            ->paginate(9);
             $Alias = '';
 
             $Cate = Category::where('alias', $slug)

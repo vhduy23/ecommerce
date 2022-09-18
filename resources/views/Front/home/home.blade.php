@@ -132,7 +132,7 @@
                     <div class="col-lg-3 col-md-6 col-sm-12 pb-1">
                         <div class="card product-item border-0 mb-4">
                             <div class="card-header product-img position-relative overflow-hidden bg-transparent border p-0">
-                                <img class="img-fluid w-100" src="{{asset('images/product/'.$v->images)}}" alt="$v->images">
+                                <img class="img-fluid w-100" style="max-height: 236px;" src="{{asset('images/product/'.$v->images)}}" alt="$v->images">
                             </div>
                             <div class="card-body border-left border-right text-center p-0 pt-4 pb-3">
                                 <h6 class="text-truncate mb-3">{{$v->name}}</h6>
@@ -168,7 +168,7 @@
                 <div class="col-lg-3 col-md-6 col-sm-12 pb-1">
                     <div class="card product-item border-0 mb-4">
                         <div class="card-header product-img position-relative overflow-hidden bg-transparent border p-0">
-                            <img class="img-fluid w-100" src="{{url('images/product/'.$v->images)}}" alt="">
+                            <img class="img-fluid w-100" style="max-height: 236px;" src="{{url('images/product/'.$v->images)}}" alt="">
                         </div>
                         <div class="card-body border-left border-right text-center p-0 pt-4 pb-3">
                             <h6 class="text-truncate mb-3">{{$v->name}}</h6>
