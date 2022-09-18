@@ -118,6 +118,14 @@
               </p>
             </a>
           </li>
+          <li class="nav-item menu-open">
+            <a href="{{url('admin/order/list')}}" class="nav-link  @yield('order')">
+              <i class="fas fa-store fa-fw"></i>
+              <p>
+                Quản lý đơn hàng
+              </p>
+            </a>
+          </li>
           @endif
           <li class="nav-item menu-open">
             <a href="#" class="nav-link @yield('product')">
@@ -128,11 +136,6 @@
               </p>
             </a>
             <ul class="nav nav-treeview ">
-              <li class="nav-item">
-                <a href="{{url('admin/news_cat/list')}}" class="nav-link">
-                  ★ Danh mục tin tức
-                </a>
-              </li>
               <li class="nav-item menu-open">
                 <a href="{{url('admin/product/list')}}" class="nav-link">
                   ★ Danh sách sản phẩm
@@ -140,7 +143,6 @@
               </li>
             </ul>
           </li>
-          
 
           @if(isset(Auth::user()->level) && Auth::user()->level == 1)
           <li class="nav-item menu-open">
@@ -162,7 +164,7 @@
           @endif
           <li class="nav-item menu-open">
             <a href="{{url('admin/shopletter/list')}}" class="nav-link  @yield('newsletter')">
-              <i class="fas fa-envelope-open-text fa-fw"></i>
+            <i class="fas fa-user fa-fw"></i>
               <p>
                 Quản lý nhận thư liên hệ
               </p>

@@ -77,7 +77,6 @@ $('#btnSendContact').click(function(){
 
 
 //sắp xếp news
-
 $('#newsSort').on('change', function() {
   var cat = $('#newsCat').val();
   var sort = this.value;
@@ -94,3 +93,4 @@ $('#fillter').on('change', function() {
     window.location.href= url+"/"+cat+"/"+name;
   }
 });
+

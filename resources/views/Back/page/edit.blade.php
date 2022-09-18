@@ -63,7 +63,7 @@
         </div>
         <div class="form-group">
           <label for="exampleInputEmail1">Mô tả trang<span class="text-danger">*</span></label>
-          <textarea name="Description" rows="8" class="form-control" id="ckeditor">{{$Page->Description}}</textarea>
+          <textarea name="Description" rows="8" class="form-control" id="editor">{{$Page->Description}}</textarea>
         </div>
       </div>
 

@@ -57,17 +57,17 @@
 
 
   	<!-- JavaScript Libraries -->
-    <!-- <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script> -->
-    <script src="{{asset('/public/front/js/jquery-3.4.1.min.js')}}"></script>
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <!-- <script src="{{asset('/public/front/js/jquery-3.4.1.min.js')}}"></script> -->
 		<!-- <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script> -->
     <!-- <script src="{{url('public/front/js/bootstrap.bundle.min.js')}}"></script> -->
 		<script src="{{asset('/public/front/lib/easing/easing.min.js')}}"></script>
 		<script src="{{asset('/public/front/lib/owlcarousel/owl.carousel.min.js')}}"></script>
 
 		<!-- Contact Javascript File -->
-		<script src="{{asset('/public/front/mail/jqBootstrapValidation.min.js')}}"></script>
-		<script src="{{asset('/public/front/mail/contact.js')}}"></script>
-    <script src="{{asset('/resources/js/front.js')}} "></script>
+		<!-- <script src="{{asset('/public/front/mail/jqBootstrapValidation.min.js')}}"></script> -->
+		<!-- <script src="{{asset('/public/front/mail/contact.js')}}"></script> -->
+    <script src="{{url('/resources/js/front.js')}} "></script>
 
 		<!-- Template Javascript -->
 		<script src="{{asset('/public/front/js/main.js')}} "></script>

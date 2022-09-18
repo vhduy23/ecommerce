@@ -82,7 +82,7 @@ public function product_add(Request $request){
 		if (!file_exists($filePath)) {
 			mkdir("images/product/".date('Ymd'),0777,true);
 		}
-		$img->fit(208, 141);
+		$img->fit(422, 300);
 		$img->save('images/product/'.date('Ymd').'/'.$name);
 
 		//delete images upload

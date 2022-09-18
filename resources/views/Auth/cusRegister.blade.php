@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Đăng nhập hệ thống</title>
+    <title>Đăng ký thành viên</title>
     <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
     <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
     <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
@@ -153,6 +153,9 @@
     .forgot-password:focus {
         color: rgb(12, 97, 33);
     }
+    h3 {
+        text-align: center;
+    }
 </style>
 <script>
     $(document).ready(function() {
@@ -254,21 +257,18 @@
             <h3>Đăng ký tài khoản</h3>
             <img id="profile-img" class="profile-img-card" src="//ssl.gstatic.com/accounts/ui/avatar_2x.png" />
             <p id="profile-name" class="profile-name-card"></p>
-            <form class="form-signin" action="{{url('admin')}}" method="POST">
+            <form class="form-signin" action="{{url('register')}}" method="POST">
                 {!! csrf_field() !!}
                 <span id="reauth-email" class="reauth-email"></span>
-                <input type="text" id="username" name="username" class="form-control" placeholder="Nhập tên đăng nhập..." required autofocus>
-                <input type="password" id="password" name="password" class="form-control" placeholder="Nhập mật khẩu..." required>
-                <div id="remember" class="checkbox">
-                    <label>
-                        <input type="checkbox" value="remember-me"> Lưu mật khẩu
-                    </label>
-                </div>
-                <button class="btn btn-lg btn-primary btn-block btn-signin" type="submit">Đăng nhập</button>
+                <input type="text" id="fullname" name="fullname" class="form-control" placeholder="Nhập họ và tên..." required >
+                <input type="text" id="phone" name="phone" class="form-control" placeholder="Nhập số điện thoại..." required >
+                <input type="text" id="username" name="username" class="form-control" placeholder="Nhập tên đăng nhập..." required >
+                <input type="password" id="password" name="password" class="form-control" placeholder="Nhập mật khẩu..." required >
+                <input style="margin-bottom: 10px;" type="email" id="email" name="email" class="form-control" placeholder="Nhập email..." required autofocus>
+                <input type="text" id="address" name="address" class="form-control" placeholder="Nhập địa chỉ..." required >
+                <button class="btn btn-lg btn-primary btn-block btn-signin" type="submit">Đăng ký</button>
             </form><!-- /form -->
-            <a href="#" class="forgot-password">
-                Đổi mật khẩu?
-            </a>
+            <a href="{{url('/login')}}" class="forgot-password">Đăng nhập</a>
                 @if(session('notice'))
                     <div class="alert alert-danger">
                         {{session('notice')}}

@@ -45,9 +45,11 @@
                     <i class="fas fa-heart text-primary"></i>
                     <span class="badge">0</span>
                 </a>
-                <a href="" class="btn border">
+                <?php $alias='gio-hang' ?>
+                <a href="{{url('/'.$alias)}}" class="btn border">
                     <i class="fas fa-shopping-cart text-primary"></i>
-                    <span class="badge">0</span>
+                    
+                    <span class="badge">{{Cart::count()}}</span>
                 </a>
             </div>
         </div>

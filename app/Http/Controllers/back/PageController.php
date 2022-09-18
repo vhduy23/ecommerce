@@ -34,7 +34,7 @@ class PageController extends Controller
     }
    public function page_edit_post(Request $request, $id){
         if ($request->Name == '') {
-           return redirect('admin/page/edit'.$id)->with(['flash_level' => 'danger' , 'flash_message' => 'Vui lòng điền vào các trường có dấu *']);
+           return redirect('admin/page/edit/'.$id)->with(['flash_level' => 'danger' , 'flash_message' => 'Vui lòng điền vào các trường có dấu *']);
        }
         $Page = Page::find($id);
        $Page->Name = $request->Name;
