@@ -35,11 +35,22 @@ $('#btnSendSub').click(function(){
 });
 
 $('.btnAddCart').click(function() {
+  if($(this).attr('data-qty') != undefined){
   var txtProductId = $(this).attr('data-id')
   var txtQty = $(this).attr('data-qty')
   var txtPrice = $(this).attr('data-price')
   var txtDiscount = $(this).attr('data-discount')
 	var _token = $('#_token').val();
+  var txtFee = 30000;
+
+  }else{
+    var txtProductId = $(this).attr('data-id')
+    var txtQty = $('#txtQty').val();
+    var txtPrice = $('#txtPrice').val();
+    var txtDiscount = $('#txtDiscount').val();
+    var _token = $('#_token').val();
+    var txtFee = 30000;
+  }
 
     $.ajax({
       type: 'POST',
@@ -49,6 +60,7 @@ $('.btnAddCart').click(function() {
         txtPrice : txtPrice, 
         txtDiscount : txtDiscount, 
         txtQty : txtQty, 
+        txtFee : txtFee,
         _token : _token 
       },
       success: function(data) {
@@ -62,9 +74,11 @@ $('.btnAddCart').click(function() {
 })
 
 $('.txtEditQty').click(function(){
-  var rowId = $(this).attr('data-id')
+  var rowId = $(this).attr('data-id');
   var txtQty = $('.txtQty'+ rowId).val();
 	var _token = $('#_token').val();
+
+  // alert('rowId:' + rowId);
 
   $.ajax({
     type: 'POST',
@@ -83,6 +97,34 @@ $('.txtEditQty').click(function(){
     }
 });
 })
+
+$('#btnFee').change(function() {
+  var fee = this.value;
+	var rowId = $('#txtFeeId').val();
+
+	var _token = $('#_token').val();
+
+  // alert('txtFeeId: ' + txtFeeId)
+
+  $.ajax({
+    type: 'POST',
+    url: url + "/cap-nhat-san-pham",
+    data: { 
+      rowId : rowId,
+      fee : fee,
+      _token : _token 
+    },
+    success: function(data) {
+      if (data == 'error'){
+        alert('Lỗi cập nhật phí ship, xin vui lòng kiểm tra lại!');
+      }else{
+        window.location.href= url+"/gio-hang";
+      }
+
+    }
+});
+
+});
 
 $('.btnSubmit').click(function(){
 
@@ -116,16 +158,14 @@ $('.btnSubmit').click(function(){
           alert('Có lỗi trong quá trình đặt hàng, xin vui lòng kiểm tra lại!');
         }else{
           alert('Đặt hàng thành công, chúng tôi sẽ sơm liên hệ tới bạn, xin cảm ơn!');
-
-          if(txtSession == 'false'){
+          window.location.href= url;
+          if(txtSession){
             document.getElementById(".txtName").value ="";
             document.getElementById(".txtEmail").value ="";
             document.getElementById(".txtPhone").value ="";
             document.getElementById(".txtAddress").value ="";
-          }
-
-          window.location.href= url;
-         }
+            }
+      }
       }
   });
 })

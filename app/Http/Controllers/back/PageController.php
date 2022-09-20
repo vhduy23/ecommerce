@@ -23,16 +23,16 @@ class PageController extends Controller
 
     }
       //page manage
-      public function page_list(){
-        $Page = Page::get();
+    public function page_list(){
+    $Page = Page::get();
 
-       return view('back.page.list',compact('Page'));
+    return view('back.page.list',compact('Page'));
     }
-   public function page_edit(Request $request, $id){
+    public function page_edit(Request $request, $id){
         $Page = Page::find($id);
         return view('back.page.edit',compact('Page'));
     }
-   public function page_edit_post(Request $request, $id){
+    public function page_edit_post(Request $request, $id){
         if ($request->Name == '') {
            return redirect('admin/page/edit/'.$id)->with(['flash_level' => 'danger' , 'flash_message' => 'Vui lòng điền vào các trường có dấu *']);
        }

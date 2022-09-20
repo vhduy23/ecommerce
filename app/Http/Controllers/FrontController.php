@@ -21,6 +21,7 @@ use App\Models\ProductImages;
 use App\Models\Order;
 use App\Models\OrderDetail;
 use App\Models\OrderStatus;
+use App\Models\Ship;
 
 class FrontController extends Controller
 {
@@ -116,13 +117,14 @@ class FrontController extends Controller
         return view('front.product.detail', compact('productDetail', 'highlightProduct'));
     }
     public function add_item(Request $request){
+        // dd($request->txtProductId);
         $Products = Product::where('id', $request->txtProductId)
         ->selectRaw('id, name, price, images')
         ->first();
-
+        $fee = 0;
         $flag = Cart::add([
             ['id' => $request->txtProductId, 'name' => $Products->name, 'qty' => $request->txtQty, 'price' => $request->txtPrice, 
-                'discount' => $request->txtDiscount, 'options' => ['images' => $Products->images, 'id' => $Products->id]]
+            'fee' => $fee, 'options' => ['images' => $Products->images, 'id' => $Products->id]]
           ]);
 
         if($flag == true){
@@ -137,12 +139,24 @@ class FrontController extends Controller
         return redirect('/gio-hang');
     }
     public function edit_item(Request $request){
-        $flag = Cart::update($request->rowId, $request->txtQty);
-        if($flag == true){
-            echo 'finish';
-        }
-        else{
-            echo 'error';
+        if(isset($request-> txtQty)){
+            $flag = Cart::update($request->rowId, $request->txtQty);
+            if($flag == true){
+                echo 'finish';
+            }
+            else{
+                echo 'error';
+            }  
+        }else{
+            $flag = Cart::update($request->rowId, ['fee' => $request->fee]);
+            // dd($request->fee);
+
+            if($flag == true){
+                echo 'finish';
+            }
+            else{
+                echo 'error';
+            }
         }
     }
     public function order(Request $request){
@@ -180,9 +194,21 @@ class FrontController extends Controller
     }
 
     public function slug(Request $request, $slug){
-        // dd($slug);
         if(isset($slug) && $slug == 'gio-hang'){
-            return view('front.cart.cart');
+            $Ship = Ship::get();
+
+            return view('front.cart.cart', compact('Ship'));
+        }
+        if(isset($slug) && $slug == 'lien-he'){
+            $PageInfor = Page::where('Status', 1)->where('Alias','lien-he')
+            ->selectRaw('Name, Images, Alias, MetaTitle, MetaDescription, MetaKeyword, Description ')
+            ->first();
+
+            $Map = System::where('Status', 1)
+            ->where('Code', 'map')
+            ->selectRaw('Description')->first();
+
+            return view('front.contact.contact', compact('PageInfor', ('Map')));
         }
         if(isset($slug) && $slug == 've-chung-toi'){
 

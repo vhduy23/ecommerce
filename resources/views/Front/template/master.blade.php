@@ -36,7 +36,7 @@
 
 <!-- Libraries Stylesheet -->
 <link href="{{asset('/public/front/lib/owlcarousel/assets/owl.carousel.min.css')}}" rel="stylesheet">
-
+<link href="{{asset('public/front/css/style2.css')}}" rel="stylesheet" />
 <!-- Customized Bootstrap Stylesheet -->
 <link href="{{asset('/public/front/css/style.css')}}" rel="stylesheet">
 <link href="{{asset('/public/front/css/c-style.css')}}" rel="stylesheet">

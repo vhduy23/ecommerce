@@ -8,7 +8,7 @@
         <div class="d-flex flex-column align-items-center justify-content-center" style="min-height: 300px">
             <h1 class="font-weight-semi-bold text-uppercase mb-3">Chi tiết sản phẩm</h1>
             <div class="d-inline-flex">
-                <p class="m-0"><a href="">Trang chủ</a></p>
+                <p class="m-0"><a href="{{url('/')}}">Trang chủ</a></p>
                 <p class="m-0 px-2">-</p>
                 <p class="m-0">Chi tiết sản phẩm</p>
             </div>
@@ -56,8 +56,8 @@
                 <div class="d-flex">
                     <h3 class="font-weight-semi-bold mb-4"  style="padding-right: 15px;">{{number_format($productDetail->price - ($productDetail->price * $productDetail->discount / 100))}} VNĐ</h3>
                     <h3 class="font-weight-semi-bold mb-4 text-muted"><del> {{number_format($productDetail->price)}} VNĐ</del></h3>
-                    <input type="hidden" class="txtPrice" value="{{$productDetail->price - ($productDetail->price * $productDetail->discount / 100)}}">
-                    <input type="hidden" class="txtDiscount" value="{{$productDetail->discount}}">
+                    <input type="hidden" id="txtPrice" value="{{$productDetail->price - ($productDetail->price * $productDetail->discount / 100)}}">
+                    <input type="hidden" id="txtDiscount" value="{{$productDetail->discount}}">
                 </div>
                 <div class="d-flex">
                     <p class="text-dark font-weight-medium mb-0 mr-3">Tác giả:</p>
@@ -69,11 +69,12 @@
                 </div>
                 <div class="d-flex">
                     <p class="text-dark font-weight-medium mb-0 mr-3">Tình trạng</p>
-                    <p class="mb-4">@if($productDetail->quantity > 0) 
-                                        Còn hàng 
-                                    @else 
-                                        Hết hàng
-                                    @endif  
+                    <p class="mb-4">
+                    @if($productDetail->quantity > 0) 
+                        Còn hàng 
+                    @else 
+                        Hết hàng
+                    @endif  
                     </p>
                 </div>
                 <!-- <div class="d-flex mb-3">
@@ -133,15 +134,14 @@
                             <i class="fa fa-minus"></i>
                             </button>
                         </div>
-                        <input type="text" class="form-control bg-secondary text-center txtQty" value="1" >
+                        <input type="text" class="form-control bg-secondary text-center " id="txtQty" value="1" >
                         <div class="input-group-btn">
                             <button class="btn btn-primary btn-plus">
                                 <i class="fa fa-plus"></i>
                             </button>
                         </div>
                     </div>
-                    <button   class="btn btn-primary px-3 btnAddCart"><i class="fa fa-shopping-cart mr-1"></i>Thêm vào giỏ</button>
-                    <input type="hidden" class="txtProductId" value="{{$productDetail->id}}">
+                    <button class="btn btn-primary px-3 btnAddCart" data-id="{{$productDetail->id}}"><i class="fa fa-shopping-cart mr-1"></i>Thêm vào giỏ</button>
                 </div>
                 <div class="d-flex pt-2">
                     <p class="text-dark font-weight-medium mb-0 mr-2">Chia sẻ:</p>
@@ -231,7 +231,7 @@
                     @foreach($highlightProduct as $k => $v)
                     <div class="card product-item border-0">
                         <div class="card-header product-img position-relative overflow-hidden bg-transparent border p-0">
-                            <img class="img-fluid w-100" src="{{url('images/product/'.$v->images)}}" alt="">
+                            <img class="img-fluid w-100" style="max-height: 236px;" src="{{url('images/product/'.$v->images)}}" alt="">
                         </div>
                         <div class="card-body border-left border-right text-center p-0 pt-4 pb-3">
                             <h6 class="text-truncate mb-3">{{$v->name}}</h6>

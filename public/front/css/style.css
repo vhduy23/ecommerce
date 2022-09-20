@@ -3901,6 +3901,9 @@ input[type="button"].btn-block {
   cursor: default;
 }
 
+.bg-gray input{
+  background-color: #eeeeee;
+}
 .custom-range:disabled::-ms-thumb {
   background-color: #adb5bd;
 }

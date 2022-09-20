@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Đăng nhập hệ thống</title>
+    <title>Đăng nhập trang quản trị</title>
     <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
     <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
     <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
@@ -156,6 +156,9 @@
     .forgot-password:focus {
         color: rgb(12, 97, 33);
     }
+    h3{
+        text-align: center;
+    }
 </style>
 <script>
     $(document).ready(function() {
@@ -254,7 +257,7 @@
     <div class="container">
         <div class="card card-container">
             <!-- <img class="profile-img-card" src="//lh3.googleusercontent.com/-6V8xOA6M7BA/AAAAAAAAAAI/AAAAAAAAAAA/rzlHcD0KYwo/photo.jpg?sz=120" alt="" /> -->
-            <h3>Đăng nhập trang quản trị</h3>
+            <h3>Đăng nhập quản trị</h3>
             <img id="profile-img" class="profile-img-card" src="//ssl.gstatic.com/accounts/ui/avatar_2x.png" />
             <p id="profile-name" class="profile-name-card"></p>
             <form class="form-signin" action="{{url('admin')}}" method="POST">
@@ -269,9 +272,6 @@
                 </div>
                 <button class="btn btn-lg btn-primary btn-block btn-signin" type="submit">Đăng nhập</button>
             </form><!-- /form -->
-            <a href="#" class="forgot-password">
-                Đổi mật khẩu?
-            </a>
                 @if(session('notice'))
                     <div class="alert alert-danger">
                         {{session('notice')}}

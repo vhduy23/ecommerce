@@ -51,7 +51,7 @@
             <input type="text" class="form-control" name="Publisher">
           </div>
           <div class="form-group">
-            <label for="exampleInputEmail1">Giá</label>
+            <label for="exampleInputEmail1">Giá(VNĐ)</label>
             <input type="number" class="form-control" name="Price">
           </div>
           <div class="form-group">
@@ -71,7 +71,7 @@
               </select>
             </div>
               <div class="form-group">
-              <label for="exampleInputEmail1">Khuyến mãi</label>
+              <label for="exampleInputEmail1">Khuyến mãi(%)</label>
               <input type="number" class="form-control" value="0"  name="Discount">
             </div>
             <div class="form-group">

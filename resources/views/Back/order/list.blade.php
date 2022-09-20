@@ -38,8 +38,9 @@
           @endif
         </tbody>
         <tfoot>
-        </tfoot>
-      </table>
+          </tfoot>
+        </table>
+        <!-- {{$Order->links()}} -->
     </div>
   </div>
 </div>

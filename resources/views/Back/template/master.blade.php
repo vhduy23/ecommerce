@@ -118,6 +118,7 @@
               </p>
             </a>
           </li>
+          @endif
           <li class="nav-item menu-open">
             <a href="{{url('admin/order/list')}}" class="nav-link  @yield('order')">
               <i class="fas fa-store fa-fw"></i>
@@ -126,7 +127,6 @@
               </p>
             </a>
           </li>
-          @endif
           <li class="nav-item menu-open">
             <a href="#" class="nav-link @yield('product')">
               <i class="far fa-newspaper fa-fw"></i>

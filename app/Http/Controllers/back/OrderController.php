@@ -24,7 +24,7 @@ class OrderController extends Controller
         $Order = DB::table('orders as a')
         ->join('order_status as b', 'a.status', '=', 'b.id')
         ->selectRaw('a.id, a.fullname, a.code, a.total, b.name')
-        ->get();
+        ->paginate(10);
         // dd($Order);
         return view('back.order.list', compact('Order'));
     }

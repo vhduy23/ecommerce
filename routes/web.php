@@ -38,6 +38,7 @@ Route::get('/logout', 'App\Http\Controllers\UserController@getLogout');
 Route::post('/them-san-pham', 'App\Http\Controllers\FrontController@add_item');
 Route::post('/dat-hang', 'App\Http\Controllers\FrontController@order');
 Route::post('/cap-nhat-san-pham', 'App\Http\Controllers\FrontController@edit_item');
+Route::post('/cap-nhat-phi-ship', 'App\Http\Controllers\FrontController@update_ship');
 Route::get('/xoa-san-pham/{rowId}', 'App\Http\Controllers\FrontController@delete_item');
 Route::post('/nhan-email-lien-he', 'App\Http\Controllers\FrontController@subEmail');
 // Route::post('/ve-chung-toi', 'App\Http\Controllers\FrontController@about');
