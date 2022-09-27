@@ -28,8 +28,8 @@ Route::get('/logout-customer', 'App\Http\Controllers\UserController@getLogoutCus
 
 
 // Auth admin
-Route::get('/admin', 'App\Http\Controllers\UserController@getLogin');
-Route::post('/admin', 'App\Http\Controllers\UserController@postLogin');
+Route::get('ad-auth', 'App\Http\Controllers\UserController@getLogin');
+Route::post('ad-auth', 'App\Http\Controllers\UserController@postLogin');
 Route::get('/logout', 'App\Http\Controllers\UserController@getLogout');
 
 

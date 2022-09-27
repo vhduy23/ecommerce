@@ -74,20 +74,20 @@ public function product_add(Request $request){
 			return back()->with(['flash_level' => 'danger', 'flash_message' => 'Phần mở rộng ảnh không được hỗ trợ']);
 		}
 
-		$file->move('images/product',$name);
+		$file->move('public/images/product',$name);
 
-		$img = Image::make('images/product/'.$name);
+		$img = Image::make('public/images/product/'.$name);
 		//kiểm tra nếu không tông tại thì tạo folder
-		$filePath = "images/product/".date('Ymd');
+		$filePath = "public/images/product/".date('Ymd');
 		if (!file_exists($filePath)) {
-			mkdir("images/product/".date('Ymd'),0777,true);
+			mkdir("public/images/product/".date('Ymd'),0777,true);
 		}
 		$img->fit(422, 300);
-		$img->save('images/product/'.date('Ymd').'/'.$name);
+		$img->save('public/images/product/'.date('Ymd').'/'.$name);
 
 		//delete images upload
-		if (file_exists('images/product/'.$name)){
-			unlink('images/product/'.$name);
+		if (file_exists('public/images/product/'.$name)){
+			unlink('public/images/product/'.$name);
 		}
 
 		$Products->Images = date('Ymd').'/'.$name;
@@ -104,20 +104,20 @@ public function product_add(Request $request){
 					$ProductImages->productId = $Products->id;
 					$random_digit = rand(00000000,999999999);
 					$name = $random_digit.'-'.$file->getClientOriginalName();
-					$file->move('images/product/details/', $name);
-					$img = Image::make('images/product/details/'.$name);
+					$file->move('public/images/product/details/', $name);
+					$img = Image::make('public/images/product/details/'.$name);
 	
-					$filePath = "images/product/details/". date('ymd');
+					$filePath = "public/images/product/details/". date('ymd');
 					if(!file_exists($filePath)){
-						mkdir("images/product/details/". date('ymd'), 0777, true);
+						mkdir("public/images/product/details/". date('ymd'), 0777, true);
 					}
 					$img->fit(561, 561);
-					$img->save('images/product/details/'. date('ymd').'/'.$name);
+					$img->save('public/images/product/details/'. date('ymd').'/'.$name);
 	
 	
 					//delete file
-					if(file_exists('images/product/details/'.$name)){
-						unlink('images/product/details/'. $name);
+					if(file_exists('public/images/product/details/'.$name)){
+						unlink('public/images/product/details/'. $name);
 					}
 					$ProductImages->images = date('ymd').'/'.$name;
 					$ProductImages->save();
@@ -168,20 +168,20 @@ public function product_edit(Request $request, $id){
 			return back()->with(['flash_level' => 'danger', 'flash_message' => 'Phần mở rộng ảnh không được hỗ trợ']);
 		}
 
-		$file->move('images/product',$name);
+		$file->move('public/images/product',$name);
 
-		$img = Image::make('images/product/'.$name);
+		$img = Image::make('public/images/product/'.$name);
 		//kiểm tra nếu không tông tại thì tạo folder
-		$filePath = "images/product/".date('Ymd');
+		$filePath = "public/images/product/".date('Ymd');
 		if (!file_exists($filePath)) {
-			mkdir("images/product/".date('Ymd'),0777,true);
+			mkdir("public/images/product/".date('Ymd'),0777,true);
 		}
 		$img->fit(323, 323);
-		$img->save('images/product/'.date('Ymd').'/'.$name);
+		$img->save('public/images/product/'.date('Ymd').'/'.$name);
 
 		//delete images upload
-		if (file_exists('images/product/'.$name)){
-			unlink('images/product/'.$name);
+		if (file_exists('public/images/product/'.$name)){
+			unlink('public/images/product/'.$name);
 		}
 
 		$Products->Images = date('Ymd').'/'.$name;
@@ -202,20 +202,20 @@ public function product_edit(Request $request, $id){
 				$name = $random_digit.'-'.$file->getClientOriginalName();
 				$i++;
 
-				$file->move('images/product/details/', $name);
-				$img = Image::make('images/product/details/'.$name);
+				$file->move('public/images/product/details/', $name);
+				$img = Image::make('public/images/product/details/'.$name);
 
-				$filePath = "images/product/details/". date('ymd');
+				$filePath = "public/images/product/details/". date('ymd');
 				if(!file_exists($filePath)){
-					mkdir("images/product/details/". date('ymd'), 0777, true);
+					mkdir("public/images/product/details/". date('ymd'), 0777, true);
 				}
 				$img->fit(561, 561);
-				$img->save('images/product/details/'. date('ymd').'/'.$name);
+				$img->save('public/images/product/details/'. date('ymd').'/'.$name);
 
 
 				//delete file
-				if(file_exists('images/product/details/'.$name)){
-					unlink('images/product/details/'. $name);
+				if(file_exists('public/images/product/details/'.$name)){
+					unlink('public/images/product/details/'. $name);
 				}
 				// dd($i);
 				$ProductImages->sort = $i;

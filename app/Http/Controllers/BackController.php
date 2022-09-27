@@ -31,10 +31,10 @@ class BackController extends Controller
             $extension = $request->file('upload')->getClientOriginalExtension();
             $fileName = $fileName . '_' . time() . '.' . $extension;
     
-            $request->file('upload')->move('images/media',$fileName);
+            $request->file('upload')->move('public/images/media',$fileName);
 
     
-            $url = asset('images/media/'.$fileName);
+            $url = asset('public/images/media/'.$fileName);
             return response()->json(['fileName' => $fileName, 'uploaded'=> 1, 'url' => $url]);
         }
     }

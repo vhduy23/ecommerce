@@ -31,15 +31,15 @@
 
 
 <!-- Font Awesome -->
-<link href="{{asset('/public/fontawesome-free-5.15.3/css/all.css')}}" rel="stylesheet" />
+<link href="{{asset('fontawesome-free-5.15.3/css/all.css')}}" rel="stylesheet" />
 
 
 <!-- Libraries Stylesheet -->
-<link href="{{asset('/public/front/lib/owlcarousel/assets/owl.carousel.min.css')}}" rel="stylesheet">
-<link href="{{asset('public/front/css/style2.css')}}" rel="stylesheet" />
+<link href="{{asset('front/lib/owlcarousel/assets/owl.carousel.min.css')}}" rel="stylesheet">
+<link href="{{asset('front/css/style2.css')}}" rel="stylesheet" />
 <!-- Customized Bootstrap Stylesheet -->
-<link href="{{asset('/public/front/css/style.css')}}" rel="stylesheet">
-<link href="{{asset('/public/front/css/c-style.css')}}" rel="stylesheet">
+<link href="{{asset('front/css/style.css')}}" rel="stylesheet">
+<link href="{{asset('front/css/c-style.css')}}" rel="stylesheet">
 
     <script type="text/javascript">var url ="{!!url('/')!!}";</script> 
 </head>
@@ -61,8 +61,8 @@
     <!-- <script src="{{asset('/public/front/js/jquery-3.4.1.min.js')}}"></script> -->
 		<!-- <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script> -->
     <!-- <script src="{{url('public/front/js/bootstrap.bundle.min.js')}}"></script> -->
-		<script src="{{asset('/public/front/lib/easing/easing.min.js')}}"></script>
-		<script src="{{asset('/public/front/lib/owlcarousel/owl.carousel.min.js')}}"></script>
+		<script src="{{asset('front/lib/easing/easing.min.js')}}"></script>
+		<script src="{{asset('front/lib/owlcarousel/owl.carousel.min.js')}}"></script>
 
 		<!-- Contact Javascript File -->
 		<!-- <script src="{{asset('/public/front/mail/jqBootstrapValidation.min.js')}}"></script> -->
@@ -70,6 +70,6 @@
     <script src="{{url('/resources/js/front.js')}} "></script>
 
 		<!-- Template Javascript -->
-		<script src="{{asset('/public/front/js/main.js')}} "></script>
+		<script src="{{asset('front/js/main.js')}} "></script>
 
 </html>

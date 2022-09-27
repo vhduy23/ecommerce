@@ -56,20 +56,20 @@ class PageController extends Controller
                return back()->with(['flash_level' => 'danger', 'flash_message' => 'Phần mở rộng ảnh không được hỗ trợ']);
            }
 
-           $file->move('images/page',$name);
+           $file->move('public/images/page',$name);
 
-           $img = Image::make('images/page/'.$name);
+           $img = Image::make('public/images/page/'.$name);
            //kiểm tra nếu không tông tại thì tạo folder
-           $filePath = "images/page/".date('Ymd');
+           $filePath = "public/images/page/".date('Ymd');
            if (!file_exists($filePath)) {
-               mkdir("images/page/".date('Ymd'),0777,true);
+               mkdir("public/images/page/".date('Ymd'),0777,true);
            }
            $img->fit(300, 250);
-           $img->save('images/page/'.date('Ymd').'/'.$name);
+           $img->save('public/images/page/'.date('Ymd').'/'.$name);
 
            //delete images upload
-           if (file_exists('images/page/'.$name)){
-               unlink('images/page/'.$name);
+           if (file_exists('public/images/page/'.$name)){
+               unlink('public/images/page/'.$name);
            }
 
            $Page->Images = date('Ymd').'/'.$name;

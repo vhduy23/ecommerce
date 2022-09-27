@@ -260,7 +260,7 @@
             <h3>Đăng nhập quản trị</h3>
             <img id="profile-img" class="profile-img-card" src="//ssl.gstatic.com/accounts/ui/avatar_2x.png" />
             <p id="profile-name" class="profile-name-card"></p>
-            <form class="form-signin" action="{{url('admin')}}" method="POST">
+            <form class="form-signin" action="{{url('ad-auth')}}" method="POST">
                 {!! csrf_field() !!}
                 <span id="reauth-email" class="reauth-email"></span>
                 <input type="text" id="username" name="username" class="form-control" placeholder="Nhập tên đăng nhập..." required autofocus>

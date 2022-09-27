@@ -54,20 +54,20 @@ class SlideController extends Controller
                 return back()->with(['flash_level' => 'danger', 'flash_message' => 'Phần mở rộng ảnh không được hỗ trợ']);
             }
 
-            $file->move('images/slider',$name);
+            $file->move('public/images/slider',$name);
 
-            $img = Image::make('images/slider/'.$name);
+            $img = Image::make('public/images/slider/'.$name);
             //kiểm tra nếu không tông tại thì tạo folder
-            $filePath = "images/slider/".date('Ymd');
+            $filePath = "public/images/slider/".date('Ymd');
             if (!file_exists($filePath)) {
-                mkdir("images/slider/".date('Ymd'),0777,true);
+                mkdir("public/images/slider/".date('Ymd'),0777,true);
             }
             $img->fit(1920, 760);
-            $img->save('images/slider/'.date('Ymd').'/'.$name);
+            $img->save('public/images/slider/'.date('Ymd').'/'.$name);
 
             //delete images upload
-            if (file_exists('images/slider/'.$name)){
-                unlink('images/slider/'.$name);
+            if (file_exists('public/images/slider/'.$name)){
+                unlink('public/images/slider/'.$name);
             }
 
             $Slider->Images = date('Ymd').'/'.$name;
@@ -103,25 +103,25 @@ class SlideController extends Controller
             }
 
             if ($Slider->Images != '') {
-                if (file_exists('images/slider/'.$Slider->Images)) {
-                    unlink('images/slider/'.$Slider->Images);
+                if (file_exists('public/images/slider/'.$Slider->Images)) {
+                    unlink('public/images/slider/'.$Slider->Images);
                 }
             }
 
             //upload hinh anh len server
-            $file->move('images/slider',$name);
-            $img = Image::make('images/slider/'.$name);
+            $file->move('public/images/slider',$name);
+            $img = Image::make('public/images/slider/'.$name);
             //kiểm tra nếu không tông tại thì tạo folder
-            $filePath = "images/slider/".date('Ymd');
+            $filePath = "public/images/slider/".date('Ymd');
             if (!file_exists($filePath)) {
-                mkdir("images/slider/".date('Ymd'),0777,true);
+                mkdir("public/images/slider/".date('Ymd'),0777,true);
             }
             $img->fit(1920, 760);
-            $img->save('images/slider/'.date('Ymd').'/'.$name);
+            $img->save('public/images/slider/'.date('Ymd').'/'.$name);
 
             //delete images upload
-            if (file_exists('images/slider/'.$name)){
-                unlink('images/slider/'.$name);
+            if (file_exists('public/images/slider/'.$name)){
+                unlink('public/images/slider/'.$name);
             }
 
             $Slider->Images = date('Ymd').'/'.$name;
@@ -145,7 +145,7 @@ class SlideController extends Controller
 
          if ($Slider->Images != '') {
                 if (file_exists('images/slider/'.$Slider->Images)) {
-                    unlink('images/slider/'.$Slider->Images);
+                    unlink('public/images/slider/'.$Slider->Images);
                 }
             }
 
