@@ -67,9 +67,10 @@
 		<!-- Contact Javascript File -->
 		<!-- <script src="{{asset('/public/front/mail/jqBootstrapValidation.min.js')}}"></script> -->
 		<!-- <script src="{{asset('/public/front/mail/contact.js')}}"></script> -->
-    <script src="{{url('/resources/js/front.js')}} "></script>
 
 		<!-- Template Javascript -->
 		<script src="{{asset('front/js/main.js')}} "></script>
+    <script src="{{asset('front/js/front.js')}}"></script>
+
 
 </html>
