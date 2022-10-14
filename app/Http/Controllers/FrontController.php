@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use DB;
 use File;
+use Cart;
+
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\UserLevel;
@@ -15,6 +17,11 @@ use App\Models\Slide;
 use App\Models\Page;
 use App\Models\Product;
 use App\Models\ProductImages;
+
+use App\Models\Order;
+use App\Models\OrderDetail;
+use App\Models\OrderStatus;
+use App\Models\Ship;
 
 class FrontController extends Controller
 {
@@ -56,15 +63,19 @@ class FrontController extends Controller
 
         $Page = Page::where('status', '1')
         ->get();
-        // dd($Category);
+
         $Products = Product::where('status', '1')
-        ->orderBy('views', 'DESC')->limit(8)
+        ->orderBy('views', 'DESC')->limit(4)
         ->get();
-        return view('Front.home.home', compact('Category', 'Slider', 'Page', 'Products'));
+
+        $NewProducts = Product::where('status', '1')
+        ->orderBy('created_at', 'DESC')->limit(4)
+        ->get();
+
+        return view('Front.home.home', compact('Category', 'Slider', 'Page', 'Products', 'NewProducts'));
+
     }
     
-
-    // public function s
 
     public function subEmail(Request $request){
         if ($request->txtEmailSub != '') {
@@ -88,27 +99,7 @@ class FrontController extends Controller
             echo "error_22";
         }
     }
-    public function product_list(Request $request, $slug){
-        if(isset($slug) && $slug == 'san-pham'){
-            $Products = Product::where('status',1)->get();
-            $Alias = $slug ;
-            $Cate = '';
-            // dd($Products);
-        }
-        else{
-            $Products = DB::table('categories')
-            ->join('product', 'product.categoryId', '=', 'categories.id')
-            ->where('categories.alias', $slug)
-            ->get();
-            $Alias = '';
 
-            $Cate = Category::where('alias', $slug)
-            ->selectRaw('categories.category_name')
-            ->first();
-
-        }
-        return view('front.product.list', compact('Products','Alias', 'Cate'));
-    }
     public function slugHtml(Request $request ,$slug){  
         $productDetail = DB::table('product as a')
         ->join('categories as b', 'a.categoryId', '=', 'b.id')
@@ -125,39 +116,137 @@ class FrontController extends Controller
 
         return view('front.product.detail', compact('productDetail', 'highlightProduct'));
     }
-    // public function slug(Request $request ,$slug){
-    //     $procductCate = Page::where('Status',1)->where('Alias',$slug)->first();
+    public function add_item(Request $request){
+        // dd($request->txtProductId);
+        $Products = Product::where('id', $request->txtProductId)
+        ->selectRaw('id, name, price, images')
+        ->first();
+        $deliveryId = 2;
+        $flag = Cart::add([
+            ['id' => $request->txtProductId, 'name' => $Products->name, 'qty' => $request->txtQty, 'price' => $request->txtPrice, 
+             'options' => ['images' => $Products->images, 'id' => $Products->id, 'delivery' => '30000', 'size' => $deliveryId]]
+          ]);
 
-    //     if (isset($procductCate) && $procductCate != NULL ) {
-    //         if (isset($request->sapxep) && $request->sapxep == 'luotxem') {
-    //              $listNews = DB::table('product as a')
-    //             ->join('categoties as b', 'a.categoryId', '=', 'b.id')
-    //             ->where('a.status',1)
-    //             ->where('b.alias',$slug)
-    //             ->selectRaw('a.alias, a.name, a.images, a.smalldescription')
-    //             ->orderBy('a.views','DESC')
-    //             ->paginate(12);
-    //             $sort = 'luotxem';
-    //         }
-    //         else{
-    //              $listProduct = DB::table('product as a')
-    //             ->join('categoties as b', 'a.categoryId', '=', 'b.id')
-    //             ->where('a.status',1)
-    //             ->where('b.alias',$slug)
-    //             ->selectRaw('a.alias, a.name, a.images, a.smalldescription')
-    //             ->orderBy('a.id','DESC')
-    //             ->paginate(12);
-    //             $sort = 'tinmoi';
-    //         }
-           
-    //         return view('front.product.list', compact('newsCat','listProduct','sort'));
-    //     }
+        if($flag == true){
+            echo 'finish';
+        }
+        else{
+            echo 'error';
+        }
+    }
+    public function delete_item(Request $request, $rowId){
+        Cart::remove($rowId);
+        return redirect('/gio-hang');
+    }
+    public function edit_item(Request $request){
 
-        
-    // }
+        $delivery = 0;
+        if($request->id == '1'){
+            $delivery = 30000;
+        }
+        else{
+            $delivery = 60000;
+        }
+        if(isset($request-> txtQty)){
+            $flag = Cart::update($request->rowId, $request->txtQty);
+            if($flag == true){
+                echo 'finish';
+            }
+            else{
+                echo 'error';
+            }  
+        }else{
+            $flag = Cart::update($request->rowId, [ 'options' => ['delivery' => $delivery, 'size' => $request->Id]]);
+            // $province = $request->province;
+            // dd($request->fee);
 
-    // public function getCategory(Request $request){
-    //     $category = 
-    //     return view();
-    // }
+            if($flag == true){
+                echo 'finish';
+            }
+            else{
+                echo 'error';
+            }
+        }
+    }
+    public function order(Request $request){
+        $Order = new Order;
+        $Order->fullname = $request->txtName;
+        $Order->address = $request->txtAddress;
+        $Order->phone = $request->txtPhone;
+        $Order->email = $request->txtEmail;
+        $Order->code = rand(000000000,999999999);
+        $Order->status = 1;
+        $Order->total = 0;
+        $flag = $Order->save();
+
+        if($flag == true){
+            $total = 0;
+            if(Cart::content()->count() > 0){
+                foreach(Cart::content() as $row){
+                    $total += $row->qty*$row->price;
+                    $OrderDetails = new OrderDetail;
+                    $OrderDetails->orderId = $Order->id;
+                    $OrderDetails->productId = $row->options->id;
+                    $OrderDetails->qty = $row->qty;
+                    $OrderDetails->price = $row->price;
+                    $OrderDetails->save();
+                }
+            }
+            $Order->total = $total ;
+            $Order->save();
+            Cart::destroy();
+
+            echo 'finish';
+        }else{
+            echo 'error';
+        }
+    }
+
+    public function slug(Request $request, $slug){
+        if(isset($slug) && $slug == 'gio-hang'){
+            $Ship = Ship::get();
+
+            return view('front.cart.cart', compact('Ship'));
+        }
+        if(isset($slug) && $slug == 'lien-he'){
+            $PageInfor = Page::where('Status', 1)->where('Alias','lien-he')
+            ->selectRaw('Name, Images, Alias, MetaTitle, MetaDescription, MetaKeyword, Description')
+            ->first();
+
+            $Map = System::where('Status', 1)
+            ->where('Code', 'map')
+            ->selectRaw('Description')->first();
+
+            return view('front.contact.contact', compact('PageInfor', ('Map')));
+        }
+        if(isset($slug) && $slug == 've-chung-toi'){
+
+            $PageInfor = Page::where('Status', 1)->where('Alias','ve-chung-toi')
+            ->selectRaw('Name, Images, Alias, MetaTitle, MetaDescription, MetaKeyword, Description ')
+            ->first();
+    
+            return view('front.about.about', compact('PageInfor'));
+        }
+        if(isset($slug) && $slug == 'san-pham'){
+            $Products = Product::where('status',1)
+            ->paginate(9);
+            $Alias = $slug ;
+            $Cate = ' ';
+            return view('front.product.list', compact('Products','Alias', 'Cate'));
+        }
+        else{
+            $Products = DB::table('categories')
+            ->join('product', 'product.categoryId', '=', 'categories.id')
+            ->where('categories.alias', $slug)
+            ->paginate(9);
+            $Alias = '';
+
+            $Cate = Category::where('alias', $slug)
+            ->selectRaw('categories.category_name')
+            ->first();
+
+            return view('front.product.list', compact('Products','Alias', 'Cate'));
+        }
+    }
+
 }

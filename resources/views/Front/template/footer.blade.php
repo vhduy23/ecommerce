@@ -57,9 +57,7 @@
                     <a class="text-dark font-weight-semi-bold" href="#">Copyright &copy;{{date('Y')}} {{$copyright->Description}}</a>
                 </p>
             </div>
-            <div class="col-md-6 px-xl-0 text-center text-md-right">
-                <img class="img-fluid" src="img/payments.png" alt="">
-            </div>
+
         </div>
     </div>
     <!-- Footer End -->
@@ -72,12 +70,3 @@
 		<!-- JavaScript Libraries -->
 		<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
-		<script src="lib/easing/easing.min.js"></script>
-		<script src="lib/owlcarousel/owl.carousel.min.js"></script>
-
-		<!-- Contact Javascript File -->
-		<script src="mail/jqBootstrapValidation.min.js"></script>
-		<script src="mail/contact.js"></script>
-
-		<!-- Template Javascript -->
-		<script src="js/main.js"></script>

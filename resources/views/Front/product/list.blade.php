@@ -11,7 +11,7 @@
             <p class="m-0 px-2">-</p>
             @if($Alias == 'san-pham')
             <p class="m-0">Sản phẩm</p>
-            @else
+            @else  
             <?php $alias = 'san-pham'; ?>
             <p class="m-0"><a href="{{asset('/'.$alias)}}">Sản phẩm</a></p>
             <p class="m-0 px-2">-</p>
@@ -25,25 +25,15 @@
  <div class="container-fluid pt-5">
         <div class="row px-xl-5">
             <!-- Shop Product Start -->
-            <div class="col-lg-9 col-md-12">
+            <div class="col-lg-12 col-md-12 " style="max-width: 80%; margin: auto;">
                 <div class="row pb-3">
                     <div class="col-12 pb-1">
-                        <div class="d-flex align-items-center justify-content-between mb-4">
-                            <form action="">
-                                <div class="input-group">
-                                    <input type="text" class="form-control" placeholder="Search by name">
-                                    <div class="input-group-append">
-                                        <span class="input-group-text bg-transparent text-primary">
-                                            <i class="fa fa-search"></i>
-                                        </span>
-                                    </div>
-                                </div>
-                            </form>
-                            <div class="dropdown ml-4">
+                        <div class="d-flex align-items-center justify-content-between mb-4 float-right">
+                            <div class="dropdown ml-4 ">
                                 <button class="btn border dropdown-toggle" type="button" id="triggerId" data-toggle="dropdown" aria-haspopup="true"
                                         aria-expanded="false">
                                             Sort by
-                                        </button>
+                                </button>
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="triggerId">
                                     <a class="dropdown-item" href="#">Latest</a>
                                     <a class="dropdown-item" href="#">Popularity</a>
@@ -52,32 +42,39 @@
                             </div>
                         </div>
                     </div>
+                    <?php $qty = 1; ?>
                     @if(isset($Products) && count($Products) > 0)
                         @foreach($Products as $k => $v)
                         <div class="col-lg-4 col-md-6 col-sm-12 pb-1">
                             <div class="card product-item border-0 mb-4">
                                 <div class="card-header product-img position-relative overflow-hidden bg-transparent border p-0">
-                                    <img class="img-fluid w-100" src="{{url('images/product/'.$v->images)}}" alt="$v->images">
+                                    <img class="img-fluid w-100" style="max-height: 236px;" src="{{url('images/product/'.$v->images)}}" alt="$v->images">
                                 </div>
                                 <div class="card-body border-left border-right text-center p-0 pt-4 pb-3">
                                     <h6 class="text-truncate mb-3">{{$v->name}}</h6>
                                     <div class="d-flex justify-content-center">
                                     @if($v->discount > 0)
-                                        <h6> {{$v->price - ($v->price * $v->discount / 100)}} VNĐ</h6><h6 class="text-muted ml-2"><del>{{$v->price}} VNĐ</del></h6>
+                                        <h6> {{number_format($v->price - ($v->price * $v->discount / 100))}} VNĐ</h6><h6 class="text-muted ml-2"><del>{{number_format($v->price)}} VNĐ</del></h6>
                                         @else
-                                        <h6>{{$v->price}} VNĐ</h6>
+                                        <h6>{{number_format($v->price)}} VNĐ</h6>
                                     @endif 
-                                    
                                     </div>
                                 </div>
                                 <div class="card-footer d-flex justify-content-between bg-light border">
-                                    <a href="{{url('/'.$v->alias)}}.html" class="btn btn-sm text-dark p-0"><i class="fas fa-eye text-primary mr-1"></i>View Detail</a>
-                                    <a href="" class="btn btn-sm text-dark p-0"><i class="fas fa-shopping-cart text-primary mr-1"></i>Add To Cart</a>
+                                    <a href="{{url('/'.$v->alias)}}.html" class="btn btn-sm text-dark p-0"><i class="fas fa-eye text-primary mr-1"></i>Xem chi tiết</a>
+                                    <a href="" class="btnAddCart" 
+                                    data-id="{{$v->id}}" 
+                                    data-qty="{{$qty}}" 
+                                    data-price="{{$v->price - ($v->price * $v->discount / 100)}}" 
+                                    data-discount="{{$v->discount}}" 
+                                    class="btn btn-sm text-dark p-0"><i class="fas fa-shopping-cart text-primary mr-1"></i>Thêm vào giỏ</a>
+                                    <input type="hidden" class="txtPrice" value="{{$v->price - ($v->price * $v->discount / 100)}}">
+                                    <input type="hidden" class="txtDiscount" value="{{$v->discount}}">
                                 </div>
                             </div>
                         </div>
                         @endforeach
-                    <div class="col-12 pb-1">
+                        <div class="col-12 pb-1">
                         <nav aria-label="Page navigation">
                           <ul class="pagination justify-content-center mb-3">
                             <li class="page-item disabled">
@@ -88,7 +85,6 @@
                             </li>
                             <li class="page-item active"><a class="page-link" href="#">1</a></li>
                             <li class="page-item"><a class="page-link" href="#">2</a></li>
-                            <li class="page-item"><a class="page-link" href="#">3</a></li>
                             <li class="page-item">
                               <a class="page-link" href="#" aria-label="Next">
                                 <span aria-hidden="true">&raquo;</span>

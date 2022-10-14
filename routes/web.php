@@ -12,25 +12,40 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
-Route::get('{slug}', 'App\Http\Controllers\FrontController@product_list');
+Route::get('/', 'App\Http\Controllers\FrontController@home');
 
 
-
-// Auth admin
-Route::get('/admin', 'App\Http\Controllers\UserController@getLogin');
-Route::post('/admin', 'App\Http\Controllers\UserController@postLogin');
-Route::get('/logout', 'App\Http\Controllers\UserController@getLogout');
 
 //Auth customer
 Route::get('/login', 'App\Http\Controllers\UserController@getCusLogin')->name('login');
 Route::post('/login', 'App\Http\Controllers\UserController@postCusLogin');
 
+Route::get('/register', 'App\Http\Controllers\UserController@getCusRegister');
+Route::post('/register', 'App\Http\Controllers\UserController@postCusRegister');
 
-Route::get('/', 'App\Http\Controllers\FrontController@home');
+Route::get('/logout-customer', 'App\Http\Controllers\UserController@getLogoutCus');
+
+
+
+// Auth admin
+Route::get('ad-auth', 'App\Http\Controllers\UserController@getLogin');
+Route::post('ad-auth', 'App\Http\Controllers\UserController@postLogin');
+Route::get('/logout', 'App\Http\Controllers\UserController@getLogout');
+
+
+
+// page action
+Route::post('/them-san-pham', 'App\Http\Controllers\FrontController@add_item');
+Route::post('/dat-hang', 'App\Http\Controllers\FrontController@order');
+Route::post('/cap-nhat-san-pham', 'App\Http\Controllers\FrontController@edit_item');
+Route::post('/cap-nhat-phi-ship', 'App\Http\Controllers\FrontController@update_ship');
+Route::get('/xoa-san-pham/{rowId}', 'App\Http\Controllers\FrontController@delete_item');
 Route::post('/nhan-email-lien-he', 'App\Http\Controllers\FrontController@subEmail');
+// Route::post('/ve-chung-toi', 'App\Http\Controllers\FrontController@about');
+
 
 Route::get('{slug}.html','App\Http\Controllers\FrontController@slugHtml');
-// Route::get('{slug}','App\Http\Controllers\FrontController@slug');
+Route::get('{slug?}','App\Http\Controllers\FrontController@slug');
 
 
 Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function ($middleware) {
@@ -116,6 +131,13 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function ($middlewar
 		Route::get('list', 'App\Http\Controllers\back\PageController@page_list');
 		Route::get('edit/{id}', 'App\Http\Controllers\back\PageController@page_edit');
 		Route::post('edit/{id}', 'App\Http\Controllers\back\PageController@page_edit_post');
+	}); 
+
+    // order 
+	Route::group(['prefix' => 'order'], function(){
+		Route::get('list', 'App\Http\Controllers\back\OrderController@order_list');
+		Route::get('edit/{id}', 'App\Http\Controllers\back\OrderController@order_edit');
+		Route::post('edit/{id}', 'App\Http\Controllers\back\OrderController@order_edit_post');
 	}); 
 
 });

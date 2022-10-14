@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Đăng nhập hệ thống</title>
+    <title>Đăng ký thành viên</title>
     <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
     <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
     <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
@@ -153,8 +153,71 @@
     .forgot-password:focus {
         color: rgb(12, 97, 33);
     }
+    h3 {
+        text-align: center;
+    }
 </style>
-<script>
+<style>
+     html {
+    box-sizing: border-box;
+  }
+
+  *,
+  *:before,
+  *:after {
+      box-sizing: inherit;
+  }
+
+  /* body {
+    font-family: "Trebuchet MS", "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", Tahoma, sans-serif;
+    background-color: #ECEFF1;
+  } */
+  form {
+    max-width: 300px;
+    margin-top: 60px;
+    margin-right: auto;
+    margin-left: auto;
+    text-align: left;
+    position: relative;
+    padding-top: 80px;
+  }
+  label,
+  input {
+      display: block;
+  }
+  label {
+    font-size: 12px;
+    text-transform: uppercase;
+    color: #B0BEC5;
+    margin-bottom: 10px;
+  }
+  input {
+      width: 100%;
+      padding: 10px;
+      outline: 0;
+      border: 2px solid #B0BEC5;
+  }
+  input.invalid {
+      border-color: #DD2C00;
+  }
+
+  #notify {
+    margin-top: 5px;
+    padding: 10px;
+    font-size: 12px;
+    width: 100%;
+    color: #fff;
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+  }
+  #notify.error {
+    background-color: #DD2C00;
+  }
+</style>
+<!-- <script>
     $(document).ready(function() {
         // DOM ready
 
@@ -240,7 +303,7 @@
         localStorage.setItem("PROFILE_NAME", "César Izquierdo Tello");
         localStorage.setItem("PROFILE_REAUTH_EMAIL", "oneaccount@gmail.com");
     }
-</script>
+</script> -->
 </head>
 
 <body>
@@ -254,21 +317,18 @@
             <h3>Đăng ký tài khoản</h3>
             <img id="profile-img" class="profile-img-card" src="//ssl.gstatic.com/accounts/ui/avatar_2x.png" />
             <p id="profile-name" class="profile-name-card"></p>
-            <form class="form-signin" action="{{url('admin')}}" method="POST">
+            <form class="form-signin" action="{{url('register')}}" id="form" method="POST">
                 {!! csrf_field() !!}
                 <span id="reauth-email" class="reauth-email"></span>
-                <input type="text" id="username" name="username" class="form-control" placeholder="Nhập tên đăng nhập..." required autofocus>
-                <input type="password" id="password" name="password" class="form-control" placeholder="Nhập mật khẩu..." required>
-                <div id="remember" class="checkbox">
-                    <label>
-                        <input type="checkbox" value="remember-me"> Lưu mật khẩu
-                    </label>
-                </div>
-                <button class="btn btn-lg btn-primary btn-block btn-signin" type="submit">Đăng nhập</button>
+                <input type="text" id="fullname" name="fullname" class="form-control" placeholder="Nhập họ và tên..."  required>
+                <input type="text" id="phone" name="phone" class="form-control" placeholder="Nhập số điện thoại..."  required>
+                <input type="text" id="username" name="username" class="form-control" placeholder="Nhập tên đăng nhập..."  required>
+                <input type="password" id="password" name="password" class="form-control" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" placeholder="Nhập mật khẩu..." required >
+                <input style="margin-bottom: 10px;" type="text" id="email" name="email" class="form-control" placeholder="Nhập email..." required>
+                <input type="text" id="address" name="address" class="form-control" placeholder="Nhập địa chỉ..." required >
+                <button class="btn btn-lg btn-primary btn-block btn-signin"  type="submit">Đăng ký</button>
             </form><!-- /form -->
-            <a href="#" class="forgot-password">
-                Đổi mật khẩu?
-            </a>
+            <a href="{{url('login')}}" class="forgot-password" >Đăng nhập</a>
                 @if(session('notice'))
                     <div class="alert alert-danger">
                         {{session('notice')}}
@@ -277,5 +337,6 @@
         </div><!-- /card-container -->
     </div><!-- /container -->
 </body>
-
+<script src="{{asset('front/js/front.js')}}"></script>
+<script src="{{asset('front/js/validate.js')}}"></script>
 </html>

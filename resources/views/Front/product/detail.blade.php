@@ -6,11 +6,11 @@
 <!-- Page Header Start -->
 <div class="container-fluid bg-secondary mb-5">
         <div class="d-flex flex-column align-items-center justify-content-center" style="min-height: 300px">
-            <h1 class="font-weight-semi-bold text-uppercase mb-3">Shop Detail</h1>
+            <h1 class="font-weight-semi-bold text-uppercase mb-3">Chi tiết sản phẩm</h1>
             <div class="d-inline-flex">
-                <p class="m-0"><a href="">Home</a></p>
+                <p class="m-0"><a href="{{url('/')}}">Trang chủ</a></p>
                 <p class="m-0 px-2">-</p>
-                <p class="m-0">Shop Detail</p>
+                <p class="m-0">Chi tiết sản phẩm</p>
             </div>
         </div>
     </div>
@@ -54,8 +54,10 @@
                 </div>
                 <h3 class="font-weight-semi-bold mb-4">{{$productDetail->name}}</h3>
                 <div class="d-flex">
-                    <h3 class="font-weight-semi-bold mb-4" style="padding-right: 15px;">{{$productDetail->price - ($productDetail->price * $productDetail->discount / 100)}} VNĐ</h3>
-                    <h3 class="font-weight-semi-bold mb-4 text-muted"><del> {{$productDetail->price}} VNĐ</del></h3>
+                    <h3 class="font-weight-semi-bold mb-4"  style="padding-right: 15px;">{{number_format($productDetail->price - ($productDetail->price * $productDetail->discount / 100))}} VNĐ</h3>
+                    <h3 class="font-weight-semi-bold mb-4 text-muted"><del> {{number_format($productDetail->price)}} VNĐ</del></h3>
+                    <input type="hidden" id="txtPrice" value="{{$productDetail->price - ($productDetail->price * $productDetail->discount / 100)}}">
+                    <input type="hidden" id="txtDiscount" value="{{$productDetail->discount}}">
                 </div>
                 <div class="d-flex">
                     <p class="text-dark font-weight-medium mb-0 mr-3">Tác giả:</p>
@@ -67,11 +69,12 @@
                 </div>
                 <div class="d-flex">
                     <p class="text-dark font-weight-medium mb-0 mr-3">Tình trạng</p>
-                    <p class="mb-4">@if($productDetail->quantity > 0) 
-                                        Còn hàng 
-                                    @else 
-                                        Hết hàng
-                                    @endif  
+                    <p class="mb-4">
+                    @if($productDetail->quantity > 0) 
+                        Còn hàng 
+                    @else 
+                        Hết hàng
+                    @endif  
                     </p>
                 </div>
                 <!-- <div class="d-flex mb-3">
@@ -131,14 +134,14 @@
                             <i class="fa fa-minus"></i>
                             </button>
                         </div>
-                        <input type="text" class="form-control bg-secondary text-center" value="1">
+                        <input type="text" class="form-control bg-secondary text-center" id="txtQty" value="1" >
                         <div class="input-group-btn">
                             <button class="btn btn-primary btn-plus">
                                 <i class="fa fa-plus"></i>
                             </button>
                         </div>
                     </div>
-                    <button class="btn btn-primary px-3"><i class="fa fa-shopping-cart mr-1"></i>Thêm vào giỏ</button>
+                    <button class="btn btn-primary px-3 btnAddCart" data-id="{{$productDetail->id}}"><i class="fa fa-shopping-cart mr-1"></i>Thêm vào giỏ</button>
                 </div>
                 <div class="d-flex pt-2">
                     <p class="text-dark font-weight-medium mb-0 mr-2">Chia sẻ:</p>
@@ -162,7 +165,7 @@
         <div class="row px-xl-5">
             <div class="col">
                 <div class="nav nav-tabs justify-content-center border-secondary mb-4">
-                    <a class="nav-item nav-link active" data-toggle="tab" href="#tab-pane-1">Description</a>
+                    <a class="nav-item nav-link active" data-toggle="tab" href="#tab-pane-1">Mô tả</a>
                     <a class="nav-item nav-link" data-toggle="tab" href="#tab-pane-2">Reviews (0)</a>
                 </div>
                 <div class="tab-content">
@@ -223,11 +226,12 @@
         <div class="row px-xl-5">
             <div class="col">
                 <div class="owl-carousel related-carousel">
+                <?php $qty = 1; ?>
                     @if(isset($highlightProduct) && count($highlightProduct) > 0)
                     @foreach($highlightProduct as $k => $v)
                     <div class="card product-item border-0">
                         <div class="card-header product-img position-relative overflow-hidden bg-transparent border p-0">
-                            <img class="img-fluid w-100" src="{{url('images/product/'.$v->images)}}" alt="">
+                            <img class="img-fluid w-100" style="max-height: 236px;" src="{{url('images/product/'.$v->images)}}" alt="">
                         </div>
                         <div class="card-body border-left border-right text-center p-0 pt-4 pb-3">
                             <h6 class="text-truncate mb-3">{{$v->name}}</h6>
@@ -241,7 +245,12 @@
                         </div>
                         <div class="card-footer d-flex justify-content-between bg-light border">
                             <a href="" class="btn btn-sm text-dark p-0"><i class="fas fa-eye text-primary mr-1"></i>Xem chi tiết</a>
-                            <a href="" class="btn btn-sm text-dark p-0"><i class="fas fa-shopping-cart text-primary mr-1"></i>Thêm vào giỏ</a>
+                            <a href="" class="btnAddCart"
+                                data-id="{{$v->id}}" 
+                                data-qty="{{$qty}}" 
+                                data-price="{{$v->price - ($v->price * $v->discount / 100)}}" 
+                                data-discount="{{$v->discount}}"class="btn btn-sm text-dark p-0">
+                                <i class="fas fa-shopping-cart text-primary mr-1"></i>Thêm vào giỏ</a>
                         </div>
                     </div>
                     @endforeach
@@ -251,5 +260,5 @@
         </div>
     </div>
     <!-- Products End -->
-
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 @stop

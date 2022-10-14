@@ -268,9 +268,8 @@
                 </div>
                 <button class="btn btn-lg btn-primary btn-block btn-signin" type="submit">Đăng nhập</button>
             </form><!-- /form -->
-            <a href="#" class="forgot-password">
-                Đổi mật khẩu?
-            </a>
+            <a href="#" class="forgot-password">Đổi mật khẩu?</a>
+            <a href="{{url('/register')}}" style="margin-left: 10px; class="forgot-password">Đăng ký</a>
                 @if(session('notice'))
                     <div class="alert alert-danger">
                         {{session('notice')}}
