@@ -121,10 +121,10 @@ class FrontController extends Controller
         $Products = Product::where('id', $request->txtProductId)
         ->selectRaw('id, name, price, images')
         ->first();
-        $fee = 0;
+        $deliveryId = 2;
         $flag = Cart::add([
             ['id' => $request->txtProductId, 'name' => $Products->name, 'qty' => $request->txtQty, 'price' => $request->txtPrice, 
-            'fee' => $fee, 'options' => ['images' => $Products->images, 'id' => $Products->id]]
+             'options' => ['images' => $Products->images, 'id' => $Products->id, 'delivery' => '30000', 'size' => $deliveryId]]
           ]);
 
         if($flag == true){
@@ -139,6 +139,14 @@ class FrontController extends Controller
         return redirect('/gio-hang');
     }
     public function edit_item(Request $request){
+
+        $delivery = 0;
+        if($request->id == '1'){
+            $delivery = 30000;
+        }
+        else{
+            $delivery = 60000;
+        }
         if(isset($request-> txtQty)){
             $flag = Cart::update($request->rowId, $request->txtQty);
             if($flag == true){
@@ -148,7 +156,8 @@ class FrontController extends Controller
                 echo 'error';
             }  
         }else{
-            $flag = Cart::update($request->rowId, ['fee' => $request->fee]);
+            $flag = Cart::update($request->rowId, [ 'options' => ['delivery' => $delivery, 'size' => $request->Id]]);
+            // $province = $request->province;
             // dd($request->fee);
 
             if($flag == true){
@@ -201,7 +210,7 @@ class FrontController extends Controller
         }
         if(isset($slug) && $slug == 'lien-he'){
             $PageInfor = Page::where('Status', 1)->where('Alias','lien-he')
-            ->selectRaw('Name, Images, Alias, MetaTitle, MetaDescription, MetaKeyword, Description ')
+            ->selectRaw('Name, Images, Alias, MetaTitle, MetaDescription, MetaKeyword, Description')
             ->first();
 
             $Map = System::where('Status', 1)

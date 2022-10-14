@@ -134,7 +134,7 @@
                             <i class="fa fa-minus"></i>
                             </button>
                         </div>
-                        <input type="text" class="form-control bg-secondary text-center " id="txtQty" value="1" >
+                        <input type="text" class="form-control bg-secondary text-center" id="txtQty" value="1" >
                         <div class="input-group-btn">
                             <button class="btn btn-primary btn-plus">
                                 <i class="fa fa-plus"></i>
@@ -246,10 +246,11 @@
                         <div class="card-footer d-flex justify-content-between bg-light border">
                             <a href="" class="btn btn-sm text-dark p-0"><i class="fas fa-eye text-primary mr-1"></i>Xem chi tiết</a>
                             <a href="" class="btnAddCart"
-                                    data-id="{{$v->id}}" 
-                                    data-qty="{{$qty}}" 
-                                    data-price="{{$v->price - ($v->price * $v->discount / 100)}}" 
-                                    data-discount="{{$v->discount}}"class="btn btn-sm text-dark p-0"><i class="fas fa-shopping-cart text-primary mr-1"></i>Thêm vào giỏ</a>
+                                data-id="{{$v->id}}" 
+                                data-qty="{{$qty}}" 
+                                data-price="{{$v->price - ($v->price * $v->discount / 100)}}" 
+                                data-discount="{{$v->discount}}"class="btn btn-sm text-dark p-0">
+                                <i class="fas fa-shopping-cart text-primary mr-1"></i>Thêm vào giỏ</a>
                         </div>
                     </div>
                     @endforeach

@@ -1,7 +1,7 @@
 body{
     padding: 0;
     background-color: #24313d;
-    background-image: url(../../public/images/background.png);
+    /* background-image: url(../../public/images/background.png); */
     min-height: 800px;
     background-position: center-bottom;
     background-size: cover;

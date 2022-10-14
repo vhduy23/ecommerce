@@ -77,8 +77,7 @@ $('.txtEditQty').click(function(){
   var rowId = $(this).attr('data-id');
   var txtQty = $('.txtQty'+ rowId).val();
 	var _token = $('#_token').val();
-
-  // alert('rowId:' + rowId);
+  txtQty ++;
 
   $.ajax({
     type: 'POST',
@@ -99,32 +98,36 @@ $('.txtEditQty').click(function(){
 })
 
 $('#btnFee').change(function() {
-  var fee = this.value;
-	var rowId = $('#txtFeeId').val();
+  var id = this.value;
+  var rowId = $('#txtrowId').val();
+  var province = $('#btnFee :selected').text();
 
+	// var id = option.attr('data-id');
 	var _token = $('#_token').val();
-
-  // alert('txtFeeId: ' + txtFeeId)
+  // delivery-id
+  // alert('txtFeeId: ' + id)
 
   $.ajax({
     type: 'POST',
     url: url + "/cap-nhat-san-pham",
     data: { 
       rowId : rowId,
-      fee : fee,
+      id : id,
+      province : province,
       _token : _token 
     },
     success: function(data) {
       if (data == 'error'){
         alert('Lỗi cập nhật phí ship, xin vui lòng kiểm tra lại!');
       }else{
+
         window.location.href= url+"/gio-hang";
       }
 
     }
 });
 
-});
+})
 
 $('.btnSubmit').click(function(){
 
