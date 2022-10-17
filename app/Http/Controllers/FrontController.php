@@ -114,7 +114,7 @@ class FrontController extends Controller
         ->limit(8)
         ->get();
 
-        return view('front.product.detail', compact('productDetail', 'highlightProduct'));
+        return view('Front.product.detail', compact('productDetail', 'highlightProduct'));
     }
     public function add_item(Request $request){
         // dd($request->txtProductId);
@@ -217,7 +217,7 @@ class FrontController extends Controller
             ->where('Code', 'map')
             ->selectRaw('Description')->first();
 
-            return view('front.contact.contact', compact('PageInfor', ('Map')));
+            return view('Front.contact.contact', compact('PageInfor', ('Map')));
         }
         if(isset($slug) && $slug == 've-chung-toi'){
 
@@ -225,14 +225,14 @@ class FrontController extends Controller
             ->selectRaw('Name, Images, Alias, MetaTitle, MetaDescription, MetaKeyword, Description ')
             ->first();
     
-            return view('front.about.about', compact('PageInfor'));
+            return view('Front.about.about', compact('PageInfor'));
         }
         if(isset($slug) && $slug == 'san-pham'){
             $Products = Product::where('status',1)
             ->paginate(9);
             $Alias = $slug ;
             $Cate = ' ';
-            return view('front.product.list', compact('Products','Alias', 'Cate'));
+            return view('Front.product.list', compact('Products','Alias', 'Cate'));
         }
         else{
             $Products = DB::table('categories')
@@ -245,7 +245,7 @@ class FrontController extends Controller
             ->selectRaw('categories.category_name')
             ->first();
 
-            return view('front.product.list', compact('Products','Alias', 'Cate'));
+            return view('Front.product.list', compact('Products','Alias', 'Cate'));
         }
     }
 

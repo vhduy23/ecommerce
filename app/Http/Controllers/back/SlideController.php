@@ -29,10 +29,10 @@ class SlideController extends Controller
         $Slider = Slide::selectRaw('*')
         ->orderby('id', 'DESC')
         ->get();
-        return view('back.slider.list', compact('Slider'));
+        return view('Back.slider.list', compact('Slider'));
     }
     public function slider_getadd(){
-        return view('back.slider.add');
+        return view('Back.slider.add');
     }
     public function slider_add(Request $request){
         if ($request->Name == '' || $request->Alias == '') {
@@ -138,7 +138,7 @@ class SlideController extends Controller
     }
     public function slider_getedit(Request $request, $id){
         $Slider = Slide::find($id);
-        return view('back.slider.edit', compact('Slider'));
+        return view('Back.slider.edit', compact('Slider'));
     }
     public function slider_delete(Request $request, $id){
         $Slider = Slide::find($id);
