@@ -26,7 +26,7 @@ class OrderController extends Controller
         ->selectRaw('a.id, a.fullname, a.code, a.total, b.name')
         ->paginate(10);
         // dd($Order);
-        return view('back.order.list', compact('Order'));
+        return view('Back.order.list', compact('Order'));
     }
     public function order_edit(Request $request, $id){
         $Orders = Order::find($id);
@@ -38,7 +38,7 @@ class OrderController extends Controller
         ->selectRaw('b.name, b.images, b.code, a.price, a.qty')
         ->orderBy('a.id', 'asc')
         ->get();
-        return view('back.order.edit', compact('Orders', 'OrderStatus', 'OrderDetails'));
+        return view('Back.order.edit', compact('Orders', 'OrderStatus', 'OrderDetails'));
     }
     public function order_edit_post(Request $request, $id){
         if ($request->fullname == '' || $request->phone == '' || $request->email == '' || $request->address == '') {

@@ -26,11 +26,11 @@ class PageController extends Controller
     public function page_list(){
     $Page = Page::get();
 
-    return view('back.page.list',compact('Page'));
+    return view('Back.page.list',compact('Page'));
     }
     public function page_edit(Request $request, $id){
         $Page = Page::find($id);
-        return view('back.page.edit',compact('Page'));
+        return view('Back.page.edit',compact('Page'));
     }
     public function page_edit_post(Request $request, $id){
         if ($request->Name == '') {

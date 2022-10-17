@@ -29,13 +29,13 @@ class ProductController extends Controller
 	->selectRaw('product.*, categories.category_name')
 	->orderby('product.id', 'DESC')
 	->get();
-	return view('back.product.list', compact('Products'));
+	return view('Back.product.list', compact('Products'));
 }
 public function product_getadd(){
 	$Categories = Category::Where('status',1)->get();
 	$Products = Product::Where('status',1)->get();
 	$ProductImages = ProductImages::get();
-	return view('back.product.add', compact('Categories', 'Products', 'ProductImages'));
+	return view('Back.product.add', compact('Categories', 'Products', 'ProductImages'));
 }
 public function product_add(Request $request){
 	if ($request->Name == '' || $request->Description == '' || $request->Code == '' ) {
@@ -243,7 +243,7 @@ public function product_getedit(Request $request, $id){
 	$Categories = Category::get();
 	$Products = Product::find($id);
 	$ProductImages = ProductImages::where('productId', $id)->orderBy('sort', 'ASC')->get();
-	return view('back.product.edit', compact('Products','Categories', 'ProductImages'));
+	return view('Back.product.edit', compact('Products','Categories', 'ProductImages'));
 }
 public function product_delete(Request $request, $id){
 	$Products = Product::find($id);
